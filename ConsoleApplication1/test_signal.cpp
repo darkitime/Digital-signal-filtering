@@ -58,7 +58,6 @@ void test_signal() {
 	std::cout << "All tests passed!" << std::endl;
 }
 
-int main() {
+void runTest() {
 	test_signal();
-	return 0;
 }
