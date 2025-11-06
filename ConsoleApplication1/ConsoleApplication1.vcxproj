@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
+    <ClInclude Include="ProcessingSystem.h" />
     <ClInclude Include="FIRFilter.h" />
     <ClInclude Include="IIRFilter.h" />
     <ClInclude Include="Summator.h" />
