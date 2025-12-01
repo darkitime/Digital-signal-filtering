@@ -52,7 +52,7 @@ public:
 		if (index >= 0 && index < size) {
 			return values[index]; // возврат значения
 		}
-		if (index < 0 || index >= size) {
+		else {
 			printf("Error: Index out of bounds\n"); // обработка ошибки выхода за границы
 			return 0.0; // возврат значения по умолчанию
 		}

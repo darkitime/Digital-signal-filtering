@@ -23,13 +23,30 @@ except OSError as e:
 lib.createSystem.restype = ctypes.c_void_p
 lib.destroySystem.argtypes = [ctypes.c_void_p]
 lib.addFIR.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.POINTER(ctypes.c_double), ctypes.c_int]
-# Добавляем IIR
 lib.addIIR.argtypes = [
     ctypes.c_void_p, 
     ctypes.c_char_p, 
     ctypes.POINTER(ctypes.c_double), ctypes.c_int, # b
     ctypes.POINTER(ctypes.c_double), ctypes.c_int  # a
 ]
+
+# Добавляем функцию получения ошибки
+try:
+    lib.getLastError.restype = ctypes.c_char_p
+    lib.getLastError.argtypes = []
+except AttributeError:
+    print("Внимание: функция getLastError не найдена в DLL. Пересоберите DLL.")
+
+def check_for_error():
+    """Проверяет, была ли ошибка в C++, и кидает исключение Python"""
+    if not hasattr(lib, 'getLastError'):
+        return
+    err_ptr = lib.getLastError()
+    if err_ptr:
+        # Конвертируем bytes в string
+        err_msg = err_ptr.decode('utf-8', errors='replace')
+        # Кидаем исключение, чтобы попасть в блок except
+        raise Exception(f"C++ Error: {err_msg}")
 
 if hasattr(lib, 'processSignal'):
     lib.processSignal.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.POINTER(ctypes.c_double), 
@@ -74,18 +91,14 @@ class AdvancedFilterApp:
         # Коэффициенты B (Числитель)
         tk.Label(control_frame, text="Коэффициенты B (вход):\n(для FIR это просто coeffs)", bg="#f0f0f0").pack(anchor="w")
         self.entry_b = tk.Entry(control_frame)
-        self.entry_b.insert(0, "0.2, 0.2, 0.2, 0.2, 0.2") # Пример FIR
+        self.entry_b.insert(0, "0.2, 0.2, 0.2, 0.2, 0.2") 
         self.entry_b.pack(fill=tk.X, pady=(0, 10))
 
         # Коэффициенты A (Знаменатель) - только для IIR
         self.lbl_a = tk.Label(control_frame, text="Коэффициенты A (обратная связь):\n(Первый должен быть 1.0)", bg="#f0f0f0")
         self.entry_a = tk.Entry(control_frame)
-        self.entry_a.insert(0, "1.0, -0.9") # Пример простого IIR
+        self.entry_a.insert(0, "1.0, -0.9") 
         
-        # Скрываем A по умолчанию (так как выбран FIR)
-        # (Логика скрытия реализована в toggle_iir_fields)
-
-        # Кнопка
         self.btn_run = tk.Button(control_frame, text="РАССЧИТАТЬ", 
                                  bg="#2196F3", fg="white", font=("Arial", 12, "bold"),
                                  command=self.run_processing)
@@ -99,25 +112,22 @@ class AdvancedFilterApp:
         self.canvas.draw()
         self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
-        # Инициализация видимости полей
         self.toggle_iir_fields()
 
     def toggle_iir_fields(self, event=None):
-        """Скрывает или показывает поле коэффициентов A"""
         if self.filter_type.get() == "IIR (БИХ)":
             self.lbl_a.pack(anchor="w")
             self.entry_a.pack(fill=tk.X, pady=(0, 10))
-            # Предлагаем дефолтные значения для IIR
             if self.entry_b.get().startswith("0.2"): 
                 self.entry_b.delete(0, tk.END); self.entry_b.insert(0, "0.1")
         else:
             self.lbl_a.pack_forget()
             self.entry_a.pack_forget()
-            # Предлагаем дефолтные значения для FIR
             if self.entry_b.get() == "0.1":
                 self.entry_b.delete(0, tk.END); self.entry_b.insert(0, "0.2, 0.2, 0.2, 0.2, 0.2")
 
     def run_processing(self):
+        system = None
         try:
             # 1. Генерация сигнала
             N = 300
@@ -131,27 +141,31 @@ class AdvancedFilterApp:
                     val = math.sin(i * freq) * 3.0 + random.uniform(-0.5, 0.5)
                 elif sig_type == "Ступенька (Step)":
                     val = 1.0 if i > 50 else 0.0
-                    val += random.uniform(-0.05, 0.05) # Чуть шума
+                    val += random.uniform(-0.05, 0.05) 
                 elif sig_type == "Импульс":
                     val = 5.0 if i == 50 else 0.0
                 input_data.append(val)
 
             # 2. Подготовка C++
             system = lib.createSystem()
-            
+            check_for_error() # <-- ПРОВЕРКА ПОСЛЕ СОЗДАНИЯ
+
+            # Считываем данные из GUI (ЭТО БЫЛО ПРОПУЩЕНО)
             filt_type = self.filter_type.get()
+            
             b_str = self.entry_b.get()
             b_coeffs = [float(x) for x in b_str.split(',')]
             c_b = to_c_double_array(b_coeffs)
 
             if filt_type == "FIR (КИХ)":
                 lib.addFIR(system, b"MyFilter", c_b, len(b_coeffs))
+                check_for_error() # <-- ПРОВЕРКА
             else:
-                # IIR
                 a_str = self.entry_a.get()
                 a_coeffs = [float(x) for x in a_str.split(',')]
                 c_a = to_c_double_array(a_coeffs)
                 lib.addIIR(system, b"MyFilter", c_b, len(b_coeffs), c_a, len(a_coeffs))
+                check_for_error() # <-- ПРОВЕРКА
 
             # 3. Расчет
             c_input = to_c_double_array(input_data)
@@ -160,13 +174,14 @@ class AdvancedFilterApp:
 
             if hasattr(lib, 'processSignal'):
                 lib.processSignal(system, b"MyFilter", c_input, c_output, N)
+                check_for_error() # <-- ГЛАВНАЯ ПРОВЕРКА
             else:
                 lib.computeBlock.restype = ctypes.c_double
                 lib.resetAll(system)
                 for i in range(N):
                     c_output[i] = lib.computeBlock(system, b"MyFilter", ctypes.c_double(input_data[i]))
-
-            lib.destroySystem(system)
+                    # Если внутри computeBlock произошла ошибка, она записалась, проверим её
+                    check_for_error()
 
             # 4. Визуализация
             self.ax.clear()
@@ -178,7 +193,12 @@ class AdvancedFilterApp:
             self.canvas.draw()
 
         except Exception as e:
-            messagebox.showerror("Ошибка", f"Некорректные данные!\n{e}")
+            # Выводим ошибку (в том числе C++) в красивое окно
+            messagebox.showerror("Ошибка выполнения", str(e))
+        finally:
+            # Очистка ресурсов
+            if system:
+                lib.destroySystem(system)
 
 if __name__ == "__main__":
     root = tk.Tk()

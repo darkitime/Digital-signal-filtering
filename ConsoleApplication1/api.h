@@ -13,5 +13,9 @@ extern "C" {
     __declspec(dllexport) double computeBlock(void* systemPtr, const char* blockName, double input);
     __declspec(dllexport) void resetAll(void* systemPtr);
     __declspec(dllexport) void processSignal(void* systemPtr, const char* blockName, const double* input, double* output, int length);
+    //Добавим функцию для передачи ошибок
+    __declspec(dllexport) const char* getLastError();
+
+
 }
 

@@ -126,8 +126,13 @@
     <ClCompile Include="api.cpp" />
     <ClCompile Include="FIRFilter.cpp" />
     <ClCompile Include="IIRFilter.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Summator.cpp" />
+    <ClCompile Include="test_api.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="test_signal.cpp" />
   </ItemGroup>
   <ItemGroup>
