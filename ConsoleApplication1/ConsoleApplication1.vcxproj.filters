@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test_signal.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="FIRFilter.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -27,13 +24,7 @@
     <ClCompile Include="Summator.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="api.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="test_api.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

@@ -15,21 +15,30 @@ import ctypes
 import os
 import math
 import random
+import sys
 
-# --- 1. ЗАГРУЗКА И НАСТРОЙКА DLL (С защитой для Sphinx) ---
+def get_resource_path(relative_path):
+    """ Получает абсолютный путь к ресурсу, работает для обычной разработки и для PyInstaller """
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.abspath(os.path.join(".", relative_path))
 
+# --- 1. БЕЗОПАСНАЯ ЗАГРУЗКА DLL ---
 lib = None
-# Проверка: если мы в режиме сборки документации, пропускаем реальную загрузку
+
+# Если мы НЕ собираем документацию Sphinx, пробуем загрузить DLL
 if os.environ.get('SPHINX_BUILD') != '1':
     dll_name = "ConsoleApplication1.dll"
-    if not os.path.exists(dll_name):
-        # При обычной работе выходим, если библиотеки нет
-        print(f"Ошибка: {dll_name} не найден.")
+    dll_path = get_resource_path(dll_name)
+
+    if not os.path.exists(dll_path):
+        # Если запускаем не через GUI, выводим в консоль
+        print(f"Ошибка: {dll_path} не найден.")
     else:
         try:
-            lib = ctypes.CDLL(os.path.abspath(dll_name))
+            lib = ctypes.CDLL(dll_path)
             
-            # Настройка типов C-функций
+            # Настройка типов (обязательно внутри try или сразу после)
             lib.createSystem.restype = ctypes.c_void_p
             lib.destroySystem.argtypes = [ctypes.c_void_p]
             lib.addFIR.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.POINTER(ctypes.c_double), ctypes.c_int]
@@ -40,8 +49,8 @@ if os.environ.get('SPHINX_BUILD') != '1':
                     ctypes.POINTER(ctypes.c_double), 
                     ctypes.POINTER(ctypes.c_double), ctypes.c_int
                 ]
-        except OSError as e:
-            print(f"Ошибка загрузки DLL: {e}")
+        except Exception as e:
+            print(f"Критическая ошибка загрузки DLL: {e}")
 
 def to_c_double_array(data):
     """
@@ -183,3 +192,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = FilterApp(root)
     root.mainloop()
+
