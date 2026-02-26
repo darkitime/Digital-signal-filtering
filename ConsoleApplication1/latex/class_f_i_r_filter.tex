@@ -1,0 +1,140 @@
+\doxysection{Класс FIRFilter}
+\hypertarget{class_f_i_r_filter}{}\label{class_f_i_r_filter}\index{FIRFilter@{FIRFilter}}
+
+
+Класс, реализующий КИХ-\/фильтр (Finite Impulse Response Filter).  
+
+
+
+
+{\ttfamily \+\#include $<$FIRFilter.\+h$>$}
+
+Граф наследования:\+FIRFilter:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_i_r_filter}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_f_i_r_filter_af7161b7bb34f9d02433c69605d7606c0}{FIRFilter}} (const std::\+string \&nm, const std::\+vector$<$ double $>$ \&coefficients)
+\begin{DoxyCompactList}\small\item\em Конструктор КИХ-\/фильтра. \end{DoxyCompactList}\item 
+double \doxymbox{\hyperlink{class_f_i_r_filter_a3cd609baf146d67e058479ad00a0b5e2}{process}} (const std::\+vector$<$ double $>$ \&inputs) override
+\begin{DoxyCompactList}\small\item\em Обработка вектора входных данных. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_f_i_r_filter_a2cda506821cfb16cc0c0308912452d55}{reset}} () override
+\begin{DoxyCompactList}\small\item\em Сброс состояния фильтра. \end{DoxyCompactList}\item 
+double \doxymbox{\hyperlink{class_f_i_r_filter_aed73f34292f3f53ffbe27b63818365f9}{operator()}} (double x\+\_\+t)
+\begin{DoxyCompactList}\small\item\em Перегрузка оператора вызова функции "{}()"{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Открытые члены унаследованные от \doxymbox{\hyperlink{class_block}{Block}}}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_block_a5a936b342fd4321631d0e3bc99c1528b}{Block}} (const std::\+string \&nm)
+\begin{DoxyCompactList}\small\item\em Конструктор инициализации блока. \end{DoxyCompactList}\item 
+virtual \doxymbox{\hyperlink{class_block_aece461956ee55f531533348cab5487bf}{\texorpdfstring{$\sim$}{\string~}\+Block}} ()=default
+\begin{DoxyCompactList}\small\item\em Виртуальный деструктор. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_block_a7215634e82424565fe4896e8a8275fdf}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Получить имя блока. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Дополнительные унаследованные члены}
+\doxysubsection*{Защищенные данные унаследованные от \doxymbox{\hyperlink{class_block}{Block}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+string \doxymbox{\hyperlink{class_block_a03c4cde61bd157be1a585643ec5c7817}{name}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс, реализующий КИХ-\/фильтр (Finite Impulse Response Filter). 
+
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+Фильтр с конечной импульсной характеристикой. Наследуется от базового класса \doxylink{class_block}{Block}. Выходной сигнал вычисляется как взвешенная сумма текущего и предыдущих входных значений. 
+
+\label{doc-constructors}
+\Hypertarget{class_f_i_r_filter_doc-constructors}
+\doxysubsection{Конструктор(ы)}
+\Hypertarget{class_f_i_r_filter_af7161b7bb34f9d02433c69605d7606c0}\index{FIRFilter@{FIRFilter}!FIRFilter@{FIRFilter}}
+\index{FIRFilter@{FIRFilter}!FIRFilter@{FIRFilter}}
+\doxysubsubsection{\texorpdfstring{FIRFilter()}{FIRFilter()}}
+{\footnotesize\ttfamily \label{class_f_i_r_filter_af7161b7bb34f9d02433c69605d7606c0} 
+FIRFilter::\+\+FIRFilter (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{nm}{, }\item[{const std::\+vector$<$ double $>$ \&}]{coefficients}{}\end{DoxyParamCaption})}
+
+
+
+Конструктор КИХ-\/фильтра. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em nm} & Имя фильтра. \\
+\hline
+{\em coefficients} & Вектор коэффициентов фильтра (числителя). \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_f_i_r_filter_doc-func-members}
+\doxysubsection{Методы}
+\Hypertarget{class_f_i_r_filter_aed73f34292f3f53ffbe27b63818365f9}\index{FIRFilter@{FIRFilter}!operator()@{operator()}}
+\index{operator()@{operator()}!FIRFilter@{FIRFilter}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily \label{class_f_i_r_filter_aed73f34292f3f53ffbe27b63818365f9} 
+double FIRFilter::\+operator() (\begin{DoxyParamCaption}\item[{double}]{x\+\_\+t}{}\end{DoxyParamCaption})}
+
+
+
+Перегрузка оператора вызова функции "{}()"{}. 
+
+Позволяет использовать объект фильтра как функцию для обработки одиночных значений. 
+\begin{DoxyParams}{Аргументы}
+{\em x\+\_\+t} & Текущее значение входного сигнала. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Отфильтрованное значение. 
+\end{DoxyReturn}
+\Hypertarget{class_f_i_r_filter_a3cd609baf146d67e058479ad00a0b5e2}\index{FIRFilter@{FIRFilter}!process@{process}}
+\index{process@{process}!FIRFilter@{FIRFilter}}
+\doxysubsubsection{\texorpdfstring{process()}{process()}}
+{\footnotesize\ttfamily \label{class_f_i_r_filter_a3cd609baf146d67e058479ad00a0b5e2} 
+double FIRFilter::\+process (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ double $>$ \&}]{inputs}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Обработка вектора входных данных. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em inputs} & Вектор входных данных. Ожидается, что размер вектора равен 1 (текущий отсчет). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Вычисленное отфильтрованное значение. 
+\end{DoxyReturn}
+
+
+Замещает \doxymbox{\hyperlink{class_block_a290954267b7e711b294851cb63460a33}{Block}}.
+
+\Hypertarget{class_f_i_r_filter_a2cda506821cfb16cc0c0308912452d55}\index{FIRFilter@{FIRFilter}!reset@{reset}}
+\index{reset@{reset}!FIRFilter@{FIRFilter}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily \label{class_f_i_r_filter_a2cda506821cfb16cc0c0308912452d55} 
+void FIRFilter::\+reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Сброс состояния фильтра. 
+
+Обнуляет буфер истории входных значений (xbuf). 
+
+Замещает \doxymbox{\hyperlink{class_block_a87218dfb19b38554b77a04e97bc3fb8e}{Block}}.
+
+
+
+Объявления и описания членов классов находятся в файлах:\+\begin{DoxyCompactItemize}
+\item 
+FIRFilter.\+h\item 
+FIRFilter.\+cpp\end{DoxyCompactItemize}

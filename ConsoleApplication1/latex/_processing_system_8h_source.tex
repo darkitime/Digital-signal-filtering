@@ -1,0 +1,80 @@
+\doxysection{Processing\+System.\+h}
+\hypertarget{_processing_system_8h_source}{}\label{_processing_system_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}Block.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_processing_system_a062110af9831f0fd659596b7364fc440}{ProcessingSystem}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00018\ \ \ \ \ std::unordered\_map<std::string,\ std::unique\_ptr<Block>>\ blocks;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00021\ \ \ \ \ std::unordered\_map<std::string,\ std::vector<std::string>>\ connections;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \ \ \doxymbox{\hyperlink{class_processing_system_a062110af9831f0fd659596b7364fc440}{ProcessingSystem}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_processing_system_a262b5378cc499790f1d5bc77d3a67499}{addBlock}}(std::unique\_ptr<Block>\ block)\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!block)\ \textcolor{keywordflow}{throw}\ std::logic\_error(\textcolor{stringliteral}{"{}Block\ pointer\ is\ null"{}});}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ std::string\ name\ =\ block-\/>getName();}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (blocks.find(name)\ !=\ blocks.end())}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::logic\_error(\textcolor{stringliteral}{"{}Block\ already\ exists:\ "{}}\ +\ name);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ blocks.emplace(name,\ std::move(block));}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_processing_system_a56e61555101f1527f547e3c23e6a4602}{connect}}(\textcolor{keyword}{const}\ std::string\&\ outputBlock,\ \textcolor{keyword}{const}\ std::vector<std::string>\&\ sourceBlocks)\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (blocks.find(outputBlock)\ ==\ blocks.end())}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::logic\_error(\textcolor{stringliteral}{"{}Output\ block\ not\ found:\ "{}}\ +\ outputBlock);}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ src\ :\ sourceBlocks)}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (blocks.find(src)\ ==\ blocks.end())}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::logic\_error(\textcolor{stringliteral}{"{}Source\ block\ not\ found:\ "{}}\ +\ src);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ connections[outputBlock]\ =\ sourceBlocks;}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00064\ \ \ \ \ \doxymbox{\hyperlink{class_block}{Block}}*\ \doxymbox{\hyperlink{class_processing_system_aa96d83d66b9505c4c0e38251af2c0666}{getBlock}}(\textcolor{keyword}{const}\ std::string\&\ name)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ blocks.find(name);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (it\ !=\ blocks.end())\ ?\ it-\/>second.get()\ :\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{class_processing_system_a2dfc2b33e927c6f65c46b59eb462b05c}{computeBlock}}(\textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keywordtype}{double}\ input)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ connections.find(name);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ std::vector<double>\ inputs;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ connections.end())\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Блок\ зависит\ от\ других\ блоков}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ src\ :\ it-\/>second)\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputs.push\_back(\doxymbox{\hyperlink{class_processing_system_a2dfc2b33e927c6f65c46b59eb462b05c}{computeBlock}}(src,\ input));}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Нет\ зависимостей\ —\ используем\ внешний\ входной\ сигнал}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ inputs.push\_back(input);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_block}{Block}}*\ b\ =\ \doxymbox{\hyperlink{class_processing_system_aa96d83d66b9505c4c0e38251af2c0666}{getBlock}}(name);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!b)\ \textcolor{keywordflow}{throw}\ std::logic\_error(\textcolor{stringliteral}{"{}Block\ not\ found:\ "{}}\ +\ name);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ b-\/>process(inputs);}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00101\ \ \ \ \ std::unordered\_map<std::string,\ double>\ \doxymbox{\hyperlink{class_processing_system_a657964b0f31c5ba831394e8ac599a68d}{computeAll}}(\textcolor{keywordtype}{double}\ input)\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ std::unordered\_map<std::string,\ double>\ results;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ pair\ :\ blocks)\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ name\ =\ pair.first;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ results[name]\ =\ \doxymbox{\hyperlink{class_processing_system_a2dfc2b33e927c6f65c46b59eb462b05c}{computeBlock}}(name,\ input);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ results;}
+\DoxyCodeLine{00108\ \ \ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_processing_system_af46f2fb00074c7eea3372324892a8185}{resetAll}}()\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\&\ pair\ :\ blocks)\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ pair.second-\/>reset();}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \};}
+
+\end{DoxyCode}

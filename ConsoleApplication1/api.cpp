@@ -9,7 +9,7 @@
 #include <memory>
 #include <stdexcept>
 
-// Глобальная переменная для хранения ошибки
+// Р“Р»РѕР±Р°Р»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РѕС€РёР±РєРё
 static std::string g_lastError = "";
 
 const char* getLastError() {
@@ -35,7 +35,7 @@ void* createSystem() {
 }
 
 void destroySystem(void* systemPtr) {
-    // destroySystem обычно не кидает исключений, но для безопасности можно обернуть
+    // destroySystem РѕР±С‹С‡РЅРѕ РЅРµ РєРёРґР°РµС‚ РёСЃРєР»СЋС‡РµРЅРёР№, РЅРѕ РґР»СЏ Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё РјРѕР¶РЅРѕ РѕР±РµСЂРЅСѓС‚СЊ
     if (systemPtr) {
         delete static_cast<ProcessingSystem*>(systemPtr);
     }

@@ -1,0 +1,24 @@
+\doxysection{FIRFilter.\+h}
+\hypertarget{_f_i_r_filter_8h_source}{}\label{_f_i_r_filter_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}Block.h"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_f_i_r_filter_af7161b7bb34f9d02433c69605d7606c0}{FIRFilter}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_block_a5a936b342fd4321631d0e3bc99c1528b}{Block}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00012\ \ \ \ \ std::vector<double>\ b;\ \ \ \ }
+\DoxyCodeLine{00013\ \ \ \ \ std::vector<double>\ xbuf;\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \doxymbox{\hyperlink{class_f_i_r_filter_af7161b7bb34f9d02433c69605d7606c0}{FIRFilter}}(\textcolor{keyword}{const}\ std::string\&\ nm,\ \textcolor{keyword}{const}\ std::vector<double>\&\ coefficients);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{class_f_i_r_filter_a3cd609baf146d67e058479ad00a0b5e2}{process}}(\textcolor{keyword}{const}\ std::vector<double>\&\ inputs)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_f_i_r_filter_a2cda506821cfb16cc0c0308912452d55}{reset}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{class_f_i_r_filter_aed73f34292f3f53ffbe27b63818365f9}{operator()}}(\textcolor{keywordtype}{double}\ x\_t);}
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ }
+
+\end{DoxyCode}

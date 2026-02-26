@@ -25,28 +25,28 @@ int main() {
     try {
         ProcessingSystem system;
 
-        // Добавляем FIR фильтр
+        // Р”РѕР±Р°РІР»СЏРµРј FIR С„РёР»СЊС‚СЂ
         std::vector<double> firCoeffs = { 0.2, 0.2, 0.2, 0.2, 0.2 };
         system.addBlock(std::make_unique<FIRFilter>("FIR1", firCoeffs));
 
-        // Добавляем IIR фильтр
+        // Р”РѕР±Р°РІР»СЏРµРј IIR С„РёР»СЊС‚СЂ
         std::vector<double> iirB = { 0.1, 0.1 };
         std::vector<double> iirA = { 1.0, -0.9 };
         system.addBlock(std::make_unique<IIRFilter>("IIR2", iirB, iirA));
 
-        // Добавляем сумматор с коэффициентами u=1.0, v=1.0
+        // Р”РѕР±Р°РІР»СЏРµРј СЃСѓРјРјР°С‚РѕСЂ СЃ РєРѕСЌС„С„РёС†РёРµРЅС‚Р°РјРё u=1.0, v=1.0
         system.addBlock(std::make_unique<Summator>("SUM1", 1.0, 1.0));
 
-        // Соединяем фильтры с сумматором
+        // РЎРѕРµРґРёРЅСЏРµРј С„РёР»СЊС‚СЂС‹ СЃ СЃСѓРјРјР°С‚РѕСЂРѕРј
         system.connect("SUM1", { "FIR1", "IIR2" });
 
-        // Входной сигнал
+        // Р’С…РѕРґРЅРѕР№ СЃРёРіРЅР°Р»
         double inputSignal = 1.0;
 
-        // Вычисляем все выходы системы
+        // Р’С‹С‡РёСЃР»СЏРµРј РІСЃРµ РІС‹С…РѕРґС‹ СЃРёСЃС‚РµРјС‹
         auto outputs = system.computeAll(inputSignal);
 
-        // Выводим результаты
+        // Р’С‹РІРѕРґРёРј СЂРµР·СѓР»СЊС‚Р°С‚С‹
 		std::cout << "Processing System Outputs:\n";
         for (const auto& p : outputs) {
             const std::string& name = p.first;
@@ -54,12 +54,12 @@ int main() {
             std::cout << name << " -> " << value << "\n";
         }
 
-        // Сбрасываем все блоки
+        // РЎР±СЂР°СЃС‹РІР°РµРј РІСЃРµ Р±Р»РѕРєРё
         system.resetAll();
 
     }
     catch (const std::exception& ex) {
-        std::cerr << "Ошибка: " << ex.what() << "\n";
+        std::cerr << "РћС€РёР±РєР°: " << ex.what() << "\n";
     }
     return 0;
 }

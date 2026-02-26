@@ -1,0 +1,142 @@
+\doxysection{Класс IIRFilter}
+\hypertarget{class_i_i_r_filter}{}\label{class_i_i_r_filter}\index{IIRFilter@{IIRFilter}}
+
+
+Класс, реализующий БИХ-\/фильтр (Infinite Impulse Response Filter).  
+
+
+
+
+{\ttfamily \+\#include $<$IIRFilter.\+h$>$}
+
+Граф наследования:\+IIRFilter:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_i_i_r_filter}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_i_i_r_filter_ae89fa157490b488ae9fd27a47e8f653f}{IIRFilter}} (const std::\+string \&nm, const std::\+vector$<$ double $>$ \&bcoef, const std::\+vector$<$ double $>$ \&acoef)
+\begin{DoxyCompactList}\small\item\em Конструктор БИХ-\/фильтра. \end{DoxyCompactList}\item 
+double \doxymbox{\hyperlink{class_i_i_r_filter_acaf8d076dd713cded89e12404a02f360}{process}} (const std::\+vector$<$ double $>$ \&inputs) override
+\begin{DoxyCompactList}\small\item\em Обработка вектора входных данных. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_i_i_r_filter_a13552d925430ca9d5fb25e98b4e7e5e6}{reset}} () override
+\begin{DoxyCompactList}\small\item\em Сброс состояния фильтра. \end{DoxyCompactList}\item 
+double \doxymbox{\hyperlink{class_i_i_r_filter_a05b83e507b161bd110371df2e4caca48}{operator()}} (double x\+\_\+t)
+\begin{DoxyCompactList}\small\item\em Перегрузка оператора вызова функции "{}()"{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Открытые члены унаследованные от \doxymbox{\hyperlink{class_block}{Block}}}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_block_a5a936b342fd4321631d0e3bc99c1528b}{Block}} (const std::\+string \&nm)
+\begin{DoxyCompactList}\small\item\em Конструктор инициализации блока. \end{DoxyCompactList}\item 
+virtual \doxymbox{\hyperlink{class_block_aece461956ee55f531533348cab5487bf}{\texorpdfstring{$\sim$}{\string~}\+Block}} ()=default
+\begin{DoxyCompactList}\small\item\em Виртуальный деструктор. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_block_a7215634e82424565fe4896e8a8275fdf}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Получить имя блока. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Дополнительные унаследованные члены}
+\doxysubsection*{Защищенные данные унаследованные от \doxymbox{\hyperlink{class_block}{Block}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+string \doxymbox{\hyperlink{class_block_a03c4cde61bd157be1a585643ec5c7817}{name}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс, реализующий БИХ-\/фильтр (Infinite Impulse Response Filter). 
+
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+Фильтр с бесконечной импульсной характеристикой. Наследуется от класса \doxylink{class_block}{Block}. Выходное значение зависит не только от текущих и прошлых входов, но и от прошлых выходов (обратная связь). 
+
+\label{doc-constructors}
+\Hypertarget{class_i_i_r_filter_doc-constructors}
+\doxysubsection{Конструктор(ы)}
+\Hypertarget{class_i_i_r_filter_ae89fa157490b488ae9fd27a47e8f653f}\index{IIRFilter@{IIRFilter}!IIRFilter@{IIRFilter}}
+\index{IIRFilter@{IIRFilter}!IIRFilter@{IIRFilter}}
+\doxysubsubsection{\texorpdfstring{IIRFilter()}{IIRFilter()}}
+{\footnotesize\ttfamily \label{class_i_i_r_filter_ae89fa157490b488ae9fd27a47e8f653f} 
+IIRFilter::\+\+IIRFilter (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{nm}{, }\item[{const std::\+vector$<$ double $>$ \&}]{bcoef}{, }\item[{const std::\+vector$<$ double $>$ \&}]{acoef}{}\end{DoxyParamCaption})}
+
+
+
+Конструктор БИХ-\/фильтра. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em nm} & Имя фильтра. \\
+\hline
+{\em bcoef} & Вектор коэффициентов прямой связи (числитель передаточной функции). \\
+\hline
+{\em acoef} & Вектор коэффициентов обратной связи (знаменатель передаточной функции). \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_i_i_r_filter_doc-func-members}
+\doxysubsection{Методы}
+\Hypertarget{class_i_i_r_filter_a05b83e507b161bd110371df2e4caca48}\index{IIRFilter@{IIRFilter}!operator()@{operator()}}
+\index{operator()@{operator()}!IIRFilter@{IIRFilter}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily \label{class_i_i_r_filter_a05b83e507b161bd110371df2e4caca48} 
+double IIRFilter::\+operator() (\begin{DoxyParamCaption}\item[{double}]{x\+\_\+t}{}\end{DoxyParamCaption})}
+
+
+
+Перегрузка оператора вызова функции "{}()"{}. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em x\+\_\+t} & Одиночное входное значение. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Отфильтрованное значение. 
+\end{DoxyReturn}
+\Hypertarget{class_i_i_r_filter_acaf8d076dd713cded89e12404a02f360}\index{IIRFilter@{IIRFilter}!process@{process}}
+\index{process@{process}!IIRFilter@{IIRFilter}}
+\doxysubsubsection{\texorpdfstring{process()}{process()}}
+{\footnotesize\ttfamily \label{class_i_i_r_filter_acaf8d076dd713cded89e12404a02f360} 
+double IIRFilter::\+process (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ double $>$ \&}]{inputs}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Обработка вектора входных данных. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em inputs} & Вектор входных данных. Ожидается размер, равный 1. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Вычисленное отфильтрованное значение. 
+\end{DoxyReturn}
+
+
+Замещает \doxymbox{\hyperlink{class_block_a290954267b7e711b294851cb63460a33}{Block}}.
+
+\Hypertarget{class_i_i_r_filter_a13552d925430ca9d5fb25e98b4e7e5e6}\index{IIRFilter@{IIRFilter}!reset@{reset}}
+\index{reset@{reset}!IIRFilter@{IIRFilter}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily \label{class_i_i_r_filter_a13552d925430ca9d5fb25e98b4e7e5e6} 
+void IIRFilter::\+reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Сброс состояния фильтра. 
+
+Обнуляет буферы истории входных и выходных значений. 
+
+Замещает \doxymbox{\hyperlink{class_block_a87218dfb19b38554b77a04e97bc3fb8e}{Block}}.
+
+
+
+Объявления и описания членов классов находятся в файлах:\+\begin{DoxyCompactItemize}
+\item 
+IIRFilter.\+h\item 
+IIRFilter.\+cpp\end{DoxyCompactItemize}

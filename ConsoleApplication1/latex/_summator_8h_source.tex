@@ -1,0 +1,22 @@
+\doxysection{Summator.\+h}
+\hypertarget{_summator_8h_source}{}\label{_summator_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}Block.h"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_summator_a3942fafa6aa2bd2c4c8de5a7ab22036d}{Summator}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_block_a5a936b342fd4321631d0e3bc99c1528b}{Block}}\ \{}
+\DoxyCodeLine{00010\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{double}\ u;\ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{double}\ v;\ }
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \doxymbox{\hyperlink{class_summator_a3942fafa6aa2bd2c4c8de5a7ab22036d}{Summator}}(\textcolor{keyword}{const}\ std::string\&\ nm,\ \textcolor{keywordtype}{double}\ uu,\ \textcolor{keywordtype}{double}\ vv);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{class_summator_a69e197690b6ad865e5cfb89378e2f21e}{process}}(\textcolor{keyword}{const}\ std::vector<double>\&\ inputs)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_summator_a976ef651b3985e3d9d7262f9358b194f}{reset}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{class_summator_a62d75e17e18aaaecc62e4ffadbb2dc34}{operator()}}(\textcolor{keywordtype}{double}\ x1,\ \textcolor{keywordtype}{double}\ x2);}
+\DoxyCodeLine{00043\ \};}
+
+\end{DoxyCode}

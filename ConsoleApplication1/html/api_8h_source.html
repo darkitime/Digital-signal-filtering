@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>My Project: Исходный файл api.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="aesthetics cow.jpg"/></td>
+  <td id="projectalign">
+   <div id="projectname">My Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('api_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">api.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="api_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="api_8h.html#ad40199da2882c78c440b85c415be12fa">   16</a></span>    <a class="code hl_function" href="api_8h.html#ad40199da2882c78c440b85c415be12fa">__declspec</a>(dllexport) <span class="keywordtype">void</span>* createSystem();</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_function" href="api_8h.html#ad40199da2882c78c440b85c415be12fa">__declspec</a>(dllexport) <span class="keywordtype">void</span> destroySystem(<span class="keywordtype">void</span>* systemPtr);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_function" href="api_8h.html#ad40199da2882c78c440b85c415be12fa">__declspec</a>(dllexport) <span class="keywordtype">void</span> addFIR(<span class="keywordtype">void</span>* systemPtr, <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> <span class="keywordtype">double</span>* coeffs, <span class="keywordtype">int</span> n);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_function" href="api_8h.html#ad40199da2882c78c440b85c415be12fa">__declspec</a>(dllexport) <span class="keywordtype">void</span> addIIR(<span class="keywordtype">void</span>* systemPtr, <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> <span class="keywordtype">double</span>* b, <span class="keywordtype">int</span> nB, <span class="keyword">const</span> <span class="keywordtype">double</span>* a, <span class="keywordtype">int</span> nA);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_function" href="api_8h.html#ad40199da2882c78c440b85c415be12fa">__declspec</a>(dllexport) <span class="keywordtype">void</span> addSummator(<span class="keywordtype">void</span>* systemPtr, <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keywordtype">double</span> u, <span class="keywordtype">double</span> v);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_function" href="api_8h.html#ad40199da2882c78c440b85c415be12fa">__declspec</a>(dllexport) <span class="keywordtype">void</span> connect(<span class="keywordtype">void</span>* systemPtr, <span class="keyword">const</span> <span class="keywordtype">char</span>* outputBlock, <span class="keyword">const</span> <span class="keywordtype">char</span>** sourceBlocks, <span class="keywordtype">int</span> nSources);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_function" href="api_8h.html#ad40199da2882c78c440b85c415be12fa">__declspec</a>(dllexport) <span class="keywordtype">double</span> computeBlock(<span class="keywordtype">void</span>* systemPtr, <span class="keyword">const</span> <span class="keywordtype">char</span>* blockName, <span class="keywordtype">double</span> input);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <a class="code hl_function" href="api_8h.html#ad40199da2882c78c440b85c415be12fa">__declspec</a>(dllexport) <span class="keywordtype">void</span> resetAll(<span class="keywordtype">void</span>* systemPtr);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <a class="code hl_function" href="api_8h.html#ad40199da2882c78c440b85c415be12fa">__declspec</a>(dllexport) <span class="keywordtype">void</span> processSignal(<span class="keywordtype">void</span>* systemPtr, <span class="keyword">const</span> <span class="keywordtype">char</span>* blockName, <span class="keyword">const</span> <span class="keywordtype">double</span>* input, <span class="keywordtype">double</span>* output, <span class="keywordtype">int</span> length);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <a class="code hl_function" href="api_8h.html#ad40199da2882c78c440b85c415be12fa">__declspec</a>(dllexport) <span class="keyword">const</span> <span class="keywordtype">char</span>* getLastError();</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>}</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="ttc" id="aapi_8h_html_ad40199da2882c78c440b85c415be12fa"><div class="ttname"><a href="api_8h.html#ad40199da2882c78c440b85c415be12fa">__declspec</a></div><div class="ttdeci">__declspec(dllexport) void *createSystem()</div><div class="ttdoc">Создает новый экземпляр ProcessingSystem.</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="api_8h.html">api.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+\doxysection{Класс Signal}
+\hypertarget{class_signal}{}\label{class_signal}\index{Signal@{Signal}}
+
+
+Класс для представления и математической обработки одномерных сигналов.  
+
+
+
+
+{\ttfamily \+\#include $<$Signal.\+h$>$}
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_signal_a00fbf11280965dbff6cc440e5345fd8f}{Signal}} (int n)
+\begin{DoxyCompactList}\small\item\em Конструктор инициализации сигнала заданного размера. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_signal_a62e5d960ad4d79ac886cb33b05203d4f}{Signal}} (const \doxymbox{\hyperlink{class_signal}{Signal}} \&other)
+\begin{DoxyCompactList}\small\item\em Конструктор копирования. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_signal}{Signal}} \& \doxymbox{\hyperlink{class_signal_a21b263205b782a6f0be6ed6b45b9a513}{operator=}} (const \doxymbox{\hyperlink{class_signal}{Signal}} \&other)
+\begin{DoxyCompactList}\small\item\em Оператор присваивания. \end{DoxyCompactList}\item 
+\Hypertarget{class_signal_ae7a1d116cda63e790bf9aab549d57d3a}\label{class_signal_ae7a1d116cda63e790bf9aab549d57d3a} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Signal} ()
+\begin{DoxyCompactList}\small\item\em Деструктор. Освобождает выделенную память. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_signal_a091f9d0d99107c3db2ac1facd2732df6}{set\+Value}} (int index, double val)
+\begin{DoxyCompactList}\small\item\em Устанавливает значение конкретного отсчета сигнала. \end{DoxyCompactList}\item 
+double \doxymbox{\hyperlink{class_signal_ad66bbf6ea7287fb981ff4edee73e7e1d}{get\+Value}} (int index) const
+\begin{DoxyCompactList}\small\item\em Получает значение конкретного отсчета сигнала. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_signal_a8712299efea0ac384dd5d233faeaffa8}{get\+Size}} () const
+\begin{DoxyCompactList}\small\item\em Получает текущий размер сигнала. \end{DoxyCompactList}\item 
+\Hypertarget{class_signal_ad022819b9462012fa0df934ce24868e4}\label{class_signal_ad022819b9462012fa0df934ce24868e4} 
+void {\bfseries print} () const
+\begin{DoxyCompactList}\small\item\em Выводит значения сигнала в стандартный поток вывода (консоль). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_signal}{Signal}} \doxymbox{\hyperlink{class_signal_a047ed85c540b81f20537bdd061750f7d}{operator+}} (const \doxymbox{\hyperlink{class_signal}{Signal}} \&other) const
+\begin{DoxyCompactList}\small\item\em Оператор сложения двух сигналов. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_signal}{Signal}} \doxymbox{\hyperlink{class_signal_a452c495416a04ddf40d162220495fe78}{operator\texorpdfstring{$\ast$}{*}}} (double scalar) const
+\begin{DoxyCompactList}\small\item\em Оператор умножения сигнала на скаляр (число). \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_signal}{Signal}} \doxymbox{\hyperlink{class_signal_a142730b4c5d5ee27fe929423b8220b0b}{concat}} (const \doxymbox{\hyperlink{class_signal}{Signal}} \&other) const
+\begin{DoxyCompactList}\small\item\em Конкатенация (склейка) двух сигналов. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс для представления и математической обработки одномерных сигналов. 
+
+Хранит динамический массив отсчетов сигнала и предоставляет базовые операции, такие как сложение, умножение на скаляр и конкатенация. 
+
+\label{doc-constructors}
+\Hypertarget{class_signal_doc-constructors}
+\doxysubsection{Конструктор(ы)}
+\Hypertarget{class_signal_a00fbf11280965dbff6cc440e5345fd8f}\index{Signal@{Signal}!Signal@{Signal}}
+\index{Signal@{Signal}!Signal@{Signal}}
+\doxysubsubsection{\texorpdfstring{Signal()}{Signal()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_signal_a00fbf11280965dbff6cc440e5345fd8f} 
+Signal::\+\+Signal (\begin{DoxyParamCaption}\item[{int}]{n}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Конструктор инициализации сигнала заданного размера. 
+
+Выделяет память под массив и заполняет его нулями. 
+\begin{DoxyParams}{Аргументы}
+{\em n} & Размер создаваемого сигнала (количество отсчетов). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_signal_a62e5d960ad4d79ac886cb33b05203d4f}\index{Signal@{Signal}!Signal@{Signal}}
+\index{Signal@{Signal}!Signal@{Signal}}
+\doxysubsubsection{\texorpdfstring{Signal()}{Signal()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_signal_a62e5d960ad4d79ac886cb33b05203d4f} 
+Signal::\+\+Signal (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_signal}{Signal}} \&}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Конструктор копирования. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em other} & Оригинальный объект сигнала, копия которого создается. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_signal_doc-func-members}
+\doxysubsection{Методы}
+\Hypertarget{class_signal_a142730b4c5d5ee27fe929423b8220b0b}\index{Signal@{Signal}!concat@{concat}}
+\index{concat@{concat}!Signal@{Signal}}
+\doxysubsubsection{\texorpdfstring{concat()}{concat()}}
+{\footnotesize\ttfamily \label{class_signal_a142730b4c5d5ee27fe929423b8220b0b} 
+\doxymbox{\hyperlink{class_signal}{Signal}} Signal::\+concat (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_signal}{Signal}} \&}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Конкатенация (склейка) двух сигналов. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em other} & Сигнал, который будет присоединен в конец текущего. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Новый сигнал, содержащий элементы обоих сигналов последовательно. 
+\end{DoxyReturn}
+\Hypertarget{class_signal_a8712299efea0ac384dd5d233faeaffa8}\index{Signal@{Signal}!getSize@{getSize}}
+\index{getSize@{getSize}!Signal@{Signal}}
+\doxysubsubsection{\texorpdfstring{getSize()}{getSize()}}
+{\footnotesize\ttfamily \label{class_signal_a8712299efea0ac384dd5d233faeaffa8} 
+int Signal::\+get\+Size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Получает текущий размер сигнала. 
+
+\begin{DoxyReturn}{Возвращает}
+Количество отсчетов. 
+\end{DoxyReturn}
+\Hypertarget{class_signal_ad66bbf6ea7287fb981ff4edee73e7e1d}\index{Signal@{Signal}!getValue@{getValue}}
+\index{getValue@{getValue}!Signal@{Signal}}
+\doxysubsubsection{\texorpdfstring{getValue()}{getValue()}}
+{\footnotesize\ttfamily \label{class_signal_ad66bbf6ea7287fb981ff4edee73e7e1d} 
+double Signal::\+get\+Value (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Получает значение конкретного отсчета сигнала. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em index} & Индекс отсчета. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Значение сигнала по заданному индексу или 0.\+0, если индекс вне границ. 
+\end{DoxyReturn}
+\Hypertarget{class_signal_a452c495416a04ddf40d162220495fe78}\index{Signal@{Signal}!operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}}
+\index{operator\texorpdfstring{$\ast$}{*}@{operator\texorpdfstring{$\ast$}{*}}!Signal@{Signal}}
+\doxysubsubsection{\texorpdfstring{operator\texorpdfstring{$\ast$}{*}()}{operator*()}}
+{\footnotesize\ttfamily \label{class_signal_a452c495416a04ddf40d162220495fe78} 
+\doxymbox{\hyperlink{class_signal}{Signal}} Signal::\+operator\texorpdfstring{$\ast$}{*} (\begin{DoxyParamCaption}\item[{double}]{scalar}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Оператор умножения сигнала на скаляр (число). 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em scalar} & Действительное число для умножения. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Новый масштабированный сигнал. 
+\end{DoxyReturn}
+\Hypertarget{class_signal_a047ed85c540b81f20537bdd061750f7d}\index{Signal@{Signal}!operator+@{operator+}}
+\index{operator+@{operator+}!Signal@{Signal}}
+\doxysubsubsection{\texorpdfstring{operator+()}{operator+()}}
+{\footnotesize\ttfamily \label{class_signal_a047ed85c540b81f20537bdd061750f7d} 
+\doxymbox{\hyperlink{class_signal}{Signal}} Signal::\+operator+ (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_signal}{Signal}} \&}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Оператор сложения двух сигналов. 
+
+Если сигналы разной длины, размер результата равен максимальной длине. Недостающие отсчеты короткого сигнала считаются равными 0. 
+\begin{DoxyParams}{Аргументы}
+{\em other} & Второй сигнал для сложения. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Новый объект сигнала, содержащий покомпонентную сумму. 
+\end{DoxyReturn}
+\Hypertarget{class_signal_a21b263205b782a6f0be6ed6b45b9a513}\index{Signal@{Signal}!operator=@{operator=}}
+\index{operator=@{operator=}!Signal@{Signal}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \label{class_signal_a21b263205b782a6f0be6ed6b45b9a513} 
+\doxymbox{\hyperlink{class_signal}{Signal}} \& Signal::\+operator= (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_signal}{Signal}} \&}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Оператор присваивания. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em other} & Объект сигнала для присваивания. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Ссылка на текущий измененный объект. 
+\end{DoxyReturn}
+\Hypertarget{class_signal_a091f9d0d99107c3db2ac1facd2732df6}\index{Signal@{Signal}!setValue@{setValue}}
+\index{setValue@{setValue}!Signal@{Signal}}
+\doxysubsubsection{\texorpdfstring{setValue()}{setValue()}}
+{\footnotesize\ttfamily \label{class_signal_a091f9d0d99107c3db2ac1facd2732df6} 
+void Signal::\+set\+Value (\begin{DoxyParamCaption}\item[{int}]{index}{, }\item[{double}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Устанавливает значение конкретного отсчета сигнала. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em index} & Индекс отсчета (начиная с 0). \\
+\hline
+{\em val} & Новое значение. \\
+\hline
+\end{DoxyParams}
+
+
+Объявления и описания членов класса находятся в файле:\+\begin{DoxyCompactItemize}
+\item 
+Signal.\+h\end{DoxyCompactItemize}

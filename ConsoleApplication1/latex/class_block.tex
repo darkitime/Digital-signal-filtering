@@ -1,0 +1,145 @@
+\doxysection{Класс Block}
+\hypertarget{class_block}{}\label{class_block}\index{Block@{Block}}
+
+
+Абстрактный базовый класс "{}Блок обработки сигналов"{}.  
+
+
+
+
+{\ttfamily \+\#include $<$Block.\+h$>$}
+
+Граф наследования:\+Block:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_block}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_block_a5a936b342fd4321631d0e3bc99c1528b}{Block}} (const std::\+string \&nm)
+\begin{DoxyCompactList}\small\item\em Конструктор инициализации блока. \end{DoxyCompactList}\item 
+virtual \doxymbox{\hyperlink{class_block_aece461956ee55f531533348cab5487bf}{\texorpdfstring{$\sim$}{\string~}\+Block}} ()=default
+\begin{DoxyCompactList}\small\item\em Виртуальный деструктор. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_block_a7215634e82424565fe4896e8a8275fdf}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Получить имя блока. \end{DoxyCompactList}\item 
+virtual double \doxymbox{\hyperlink{class_block_a290954267b7e711b294851cb63460a33}{process}} (const std::\+vector$<$ double $>$ \&input)=0
+\begin{DoxyCompactList}\small\item\em Абстрактный метод обработки входных данных. \end{DoxyCompactList}\item 
+virtual void \doxymbox{\hyperlink{class_block_a87218dfb19b38554b77a04e97bc3fb8e}{reset}} ()=0
+\begin{DoxyCompactList}\small\item\em Сброс внутреннего состояния блока. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Защищенные данные}
+\begin{DoxyCompactItemize}
+\item 
+std::\+string \doxymbox{\hyperlink{class_block_a03c4cde61bd157be1a585643ec5c7817}{name}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Абстрактный базовый класс "{}Блок обработки сигналов"{}. 
+
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+Определяет общий интерфейс для всех узлов системы обработки (фильтров, сумматоров и т.\+д.). Содержит общие методы для работы с именем блока, обработки данных и сброса внутреннего состояния. 
+
+\label{doc-constructors}
+\Hypertarget{class_block_doc-constructors}
+\doxysubsection{Конструктор(ы)}
+\Hypertarget{class_block_a5a936b342fd4321631d0e3bc99c1528b}\index{Block@{Block}!Block@{Block}}
+\index{Block@{Block}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{Block()}{Block()}}
+{\footnotesize\ttfamily \label{class_block_a5a936b342fd4321631d0e3bc99c1528b} 
+Block::\+\+Block (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{nm}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Конструктор инициализации блока. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em nm} & Строка, содержащая имя создаваемого блока. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_block_aece461956ee55f531533348cab5487bf}\index{Block@{Block}!````~Block@{\texorpdfstring{$\sim$}{\string~}Block}}
+\index{````~Block@{\texorpdfstring{$\sim$}{\string~}Block}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Block()}{\string~Block()}}
+{\footnotesize\ttfamily \label{class_block_aece461956ee55f531533348cab5487bf} 
+virtual Block::\+\texorpdfstring{$\sim$}{\string~}\+Block (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+Виртуальный деструктор. 
+
+Необходим для корректного освобождения ресурсов в производных классах. 
+
+\label{doc-func-members}
+\Hypertarget{class_block_doc-func-members}
+\doxysubsection{Методы}
+\Hypertarget{class_block_a7215634e82424565fe4896e8a8275fdf}\index{Block@{Block}!getName@{getName}}
+\index{getName@{getName}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily \label{class_block_a7215634e82424565fe4896e8a8275fdf} 
+std::\+string Block::\+get\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Получить имя блока. 
+
+\begin{DoxyReturn}{Возвращает}
+Возвращает строку с именем текущего блока. 
+\end{DoxyReturn}
+\Hypertarget{class_block_a290954267b7e711b294851cb63460a33}\index{Block@{Block}!process@{process}}
+\index{process@{process}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{process()}{process()}}
+{\footnotesize\ttfamily \label{class_block_a290954267b7e711b294851cb63460a33} 
+virtual double Block::\+process (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ double $>$ \&}]{input}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Абстрактный метод обработки входных данных. 
+
+Выполняет основную математическую операцию блока над входным вектором. 
+\begin{DoxyParams}{Аргументы}
+{\em input} & Вектор значений входных сигналов. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Результат обработки (выходное значение). 
+\end{DoxyReturn}
+
+
+Замещается в \doxymbox{\hyperlink{class_f_i_r_filter_a3cd609baf146d67e058479ad00a0b5e2}{FIRFilter}}, \doxymbox{\hyperlink{class_i_i_r_filter_acaf8d076dd713cded89e12404a02f360}{IIRFilter}} и \doxymbox{\hyperlink{class_summator_a69e197690b6ad865e5cfb89378e2f21e}{Summator}}.
+
+\Hypertarget{class_block_a87218dfb19b38554b77a04e97bc3fb8e}\index{Block@{Block}!reset@{reset}}
+\index{reset@{reset}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily \label{class_block_a87218dfb19b38554b77a04e97bc3fb8e} 
+virtual void Block::\+reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Сброс внутреннего состояния блока. 
+
+Очищает внутренние буферы (например, линии задержки в фильтрах), подготавливая блок к обработке новой последовательности данных. 
+
+Замещается в \doxymbox{\hyperlink{class_f_i_r_filter_a2cda506821cfb16cc0c0308912452d55}{FIRFilter}}, \doxymbox{\hyperlink{class_i_i_r_filter_a13552d925430ca9d5fb25e98b4e7e5e6}{IIRFilter}} и \doxymbox{\hyperlink{class_summator_a976ef651b3985e3d9d7262f9358b194f}{Summator}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_block_doc-variable-members}
+\doxysubsection{Данные класса}
+\Hypertarget{class_block_a03c4cde61bd157be1a585643ec5c7817}\index{Block@{Block}!name@{name}}
+\index{name@{name}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \label{class_block_a03c4cde61bd157be1a585643ec5c7817} 
+std::\+string Block::\+name\hspace{0.3cm}{\ttfamily [protected]}}
+
+Имя текущего блока 
+
+Объявления и описания членов класса находятся в файле:\+\begin{DoxyCompactItemize}
+\item 
+Block.\+h\end{DoxyCompactItemize}

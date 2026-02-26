@@ -1,0 +1,148 @@
+\doxysection{Класс Processing\+System}
+\hypertarget{class_processing_system}{}\label{class_processing_system}\index{ProcessingSystem@{ProcessingSystem}}
+
+
+Система управления графом обработки сигналов.  
+
+
+
+
+{\ttfamily \+\#include $<$Processing\+System.\+h$>$}
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_processing_system_a062110af9831f0fd659596b7364fc440}\label{class_processing_system_a062110af9831f0fd659596b7364fc440} 
+{\bfseries Processing\+System} ()=default
+\begin{DoxyCompactList}\small\item\em Конструктор по умолчанию. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_processing_system_a262b5378cc499790f1d5bc77d3a67499}{add\+Block}} (std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_block}{Block}} $>$ block)
+\begin{DoxyCompactList}\small\item\em Добавляет новый вычислительный блок в систему. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_processing_system_a56e61555101f1527f547e3c23e6a4602}{connect}} (const std::\+string \&output\+Block, const std::\+vector$<$ std::\+string $>$ \&source\+Blocks)
+\begin{DoxyCompactList}\small\item\em Устанавливает связи (зависимости) для блока. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_block}{Block}} \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{class_processing_system_aa96d83d66b9505c4c0e38251af2c0666}{get\+Block}} (const std::\+string \&name)
+\begin{DoxyCompactList}\small\item\em Получает "{}сырой"{} указатель на блок по его имени. \end{DoxyCompactList}\item 
+double \doxymbox{\hyperlink{class_processing_system_a2dfc2b33e927c6f65c46b59eb462b05c}{compute\+Block}} (const std::\+string \&name, double input)
+\begin{DoxyCompactList}\small\item\em Рекурсивный расчет выхода конкретного блока с учетом всех его зависимостей. \end{DoxyCompactList}\item 
+std::\+unordered\+\_\+map$<$ std::\+string, double $>$ \doxymbox{\hyperlink{class_processing_system_a657964b0f31c5ba831394e8ac599a68d}{compute\+All}} (double input)
+\begin{DoxyCompactList}\small\item\em Вычисляет выходы абсолютно всех блоков системы для одного входа. \end{DoxyCompactList}\item 
+\Hypertarget{class_processing_system_af46f2fb00074c7eea3372324892a8185}\label{class_processing_system_af46f2fb00074c7eea3372324892a8185} 
+void {\bfseries reset\+All} ()
+\begin{DoxyCompactList}\small\item\em Сбрасывает внутреннее состояние (буферы, память) всех блоков в системе. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Система управления графом обработки сигналов. 
+
+Позволяет регистрировать различные блоки (фильтры, сумматоры), устанавливать связи между ними (кто откуда берет данные) и выполнять комплексные вычисления над сигналом с автоматическим разрешением зависимостей. 
+
+\label{doc-func-members}
+\Hypertarget{class_processing_system_doc-func-members}
+\doxysubsection{Методы}
+\Hypertarget{class_processing_system_a262b5378cc499790f1d5bc77d3a67499}\index{ProcessingSystem@{ProcessingSystem}!addBlock@{addBlock}}
+\index{addBlock@{addBlock}!ProcessingSystem@{ProcessingSystem}}
+\doxysubsubsection{\texorpdfstring{addBlock()}{addBlock()}}
+{\footnotesize\ttfamily \label{class_processing_system_a262b5378cc499790f1d5bc77d3a67499} 
+void Processing\+System::\+add\+Block (\begin{DoxyParamCaption}\item[{std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_block}{Block}} $>$}]{block}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Добавляет новый вычислительный блок в систему. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em block} & Уникальный указатель (unique\+\_\+ptr) на добавляемый блок. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Исключения}
+{\em std::\+logic\+\_\+error} & Если указатель пуст или блок с таким именем уже существует. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_processing_system_a657964b0f31c5ba831394e8ac599a68d}\index{ProcessingSystem@{ProcessingSystem}!computeAll@{computeAll}}
+\index{computeAll@{computeAll}!ProcessingSystem@{ProcessingSystem}}
+\doxysubsubsection{\texorpdfstring{computeAll()}{computeAll()}}
+{\footnotesize\ttfamily \label{class_processing_system_a657964b0f31c5ba831394e8ac599a68d} 
+std::\+unordered\+\_\+map$<$ std::\+string, double $>$ Processing\+System::\+compute\+All (\begin{DoxyParamCaption}\item[{double}]{input}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Вычисляет выходы абсолютно всех блоков системы для одного входа. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em input} & Значение внешнего входного сигнала. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Хеш-\/таблица (словарь), где ключ — имя блока, а значение — его выход. 
+\end{DoxyReturn}
+\Hypertarget{class_processing_system_a2dfc2b33e927c6f65c46b59eb462b05c}\index{ProcessingSystem@{ProcessingSystem}!computeBlock@{computeBlock}}
+\index{computeBlock@{computeBlock}!ProcessingSystem@{ProcessingSystem}}
+\doxysubsubsection{\texorpdfstring{computeBlock()}{computeBlock()}}
+{\footnotesize\ttfamily \label{class_processing_system_a2dfc2b33e927c6f65c46b59eb462b05c} 
+double Processing\+System::\+compute\+Block (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{name}{, }\item[{double}]{input}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Рекурсивный расчет выхода конкретного блока с учетом всех его зависимостей. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em name} & Имя блока, выход которого нужно вычислить. \\
+\hline
+{\em input} & Значение внешнего входного сигнала системы. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Вычисленное выходное значение указанного блока. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Исключения}
+{\em std::\+logic\+\_\+error} & Если блок не найден в системе. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_processing_system_a56e61555101f1527f547e3c23e6a4602}\index{ProcessingSystem@{ProcessingSystem}!connect@{connect}}
+\index{connect@{connect}!ProcessingSystem@{ProcessingSystem}}
+\doxysubsubsection{\texorpdfstring{connect()}{connect()}}
+{\footnotesize\ttfamily \label{class_processing_system_a56e61555101f1527f547e3c23e6a4602} 
+void Processing\+System::\+connect (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{output\+Block}{, }\item[{const std::\+vector$<$ std::\+string $>$ \&}]{source\+Blocks}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Устанавливает связи (зависимости) для блока. 
+
+Указывает, что {\ttfamily output\+Block} должен получать данные на вход от {\ttfamily source\+Blocks}. 
+\begin{DoxyParams}{Аргументы}
+{\em output\+Block} & Имя целевого блока, который принимает данные. \\
+\hline
+{\em source\+Blocks} & Вектор имен блоков-\/источников. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Исключения}
+{\em std::\+logic\+\_\+error} & Если указанные блоки не найдены в системе. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_processing_system_aa96d83d66b9505c4c0e38251af2c0666}\index{ProcessingSystem@{ProcessingSystem}!getBlock@{getBlock}}
+\index{getBlock@{getBlock}!ProcessingSystem@{ProcessingSystem}}
+\doxysubsubsection{\texorpdfstring{getBlock()}{getBlock()}}
+{\footnotesize\ttfamily \label{class_processing_system_aa96d83d66b9505c4c0e38251af2c0666} 
+\doxymbox{\hyperlink{class_block}{Block}} \texorpdfstring{$\ast$}{*} Processing\+System::\+get\+Block (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Получает "{}сырой"{} указатель на блок по его имени. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em name} & Имя искомого блока. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Указатель на объект \doxylink{class_block}{Block} или nullptr, если блок не найден. 
+\end{DoxyReturn}
+
+
+Объявления и описания членов класса находятся в файле:\+\begin{DoxyCompactItemize}
+\item 
+Processing\+System.\+h\end{DoxyCompactItemize}

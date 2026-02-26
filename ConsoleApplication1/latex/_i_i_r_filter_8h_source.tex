@@ -1,0 +1,27 @@
+\doxysection{IIRFilter.\+h}
+\hypertarget{_i_i_r_filter_8h_source}{}\label{_i_i_r_filter_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}Block.h"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_i_i_r_filter_ae89fa157490b488ae9fd27a47e8f653f}{IIRFilter}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_block_a5a936b342fd4321631d0e3bc99c1528b}{Block}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00012\ \ \ \ \ std::vector<double>\ b;\ \ \ \ }
+\DoxyCodeLine{00013\ \ \ \ \ std::vector<double>\ a;\ \ \ \ }
+\DoxyCodeLine{00014\ \ \ \ \ std::vector<double>\ xbuf;\ }
+\DoxyCodeLine{00015\ \ \ \ \ std::vector<double>\ ybuf;\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \doxymbox{\hyperlink{class_i_i_r_filter_ae89fa157490b488ae9fd27a47e8f653f}{IIRFilter}}(\textcolor{keyword}{const}\ std::string\&\ nm,\ \textcolor{keyword}{const}\ std::vector<double>\&\ bcoef,\ \textcolor{keyword}{const}\ std::vector<double>\&\ acoef);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{class_i_i_r_filter_acaf8d076dd713cded89e12404a02f360}{process}}(\textcolor{keyword}{const}\ std::vector<double>\&\ inputs)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_i_i_r_filter_a13552d925430ca9d5fb25e98b4e7e5e6}{reset}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{class_i_i_r_filter_a05b83e507b161bd110371df2e4caca48}{operator()}}(\textcolor{keywordtype}{double}\ x\_t);}
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+
+\end{DoxyCode}

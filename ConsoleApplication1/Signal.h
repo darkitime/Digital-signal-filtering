@@ -1,106 +1,149 @@
 #pragma once
 #include <iostream>
 
-//! описание сигнала
+/**
+ * @brief РљР»Р°СЃСЃ РґР»СЏ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ Рё РјР°С‚РµРјР°С‚РёС‡РµСЃРєРѕР№ РѕР±СЂР°Р±РѕС‚РєРё РѕРґРЅРѕРјРµСЂРЅС‹С… СЃРёРіРЅР°Р»РѕРІ.
+ * @details РҐСЂР°РЅРёС‚ РґРёРЅР°РјРёС‡РµСЃРєРёР№ РјР°СЃСЃРёРІ РѕС‚СЃС‡РµС‚РѕРІ СЃРёРіРЅР°Р»Р° Рё РїСЂРµРґРѕСЃС‚Р°РІР»СЏРµС‚
+ * Р±Р°Р·РѕРІС‹Рµ РѕРїРµСЂР°С†РёРё, С‚Р°РєРёРµ РєР°Рє СЃР»РѕР¶РµРЅРёРµ, СѓРјРЅРѕР¶РµРЅРёРµ РЅР° СЃРєР°Р»СЏСЂ Рё РєРѕРЅРєР°С‚РµРЅР°С†РёСЏ.
+ */
 class Signal {
 private:
-	double* values; //!< указатель на массив значений сигнала
-	int size; //!< текущий размер массива
+    double* values; /**< РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РґРёРЅР°РјРёС‡РµСЃРєРёР№ РјР°СЃСЃРёРІ Р·РЅР°С‡РµРЅРёР№ (РѕС‚СЃС‡РµС‚РѕРІ) СЃРёРіРЅР°Р»Р° */
+    int size;       /**< РљРѕР»РёС‡РµСЃС‚РІРѕ РѕС‚СЃС‡РµС‚РѕРІ РІ СЃРёРіРЅР°Р»Рµ */
+
 public:
-	//! конструктор массива, заполняющегося нулями
-	Signal(int n) : size(n) {
-		values = new double[n]; // выделение памяти под массив
-		for (int i = 0; i < n; i++) {
-			values[i] = 0.0; // заполнение массива нулями
-		}
-	}
-	//! конструктор копирования
-	Signal(const Signal& other) : size(other.size) {
-		values = (size > 0) ? new double[size] : nullptr; // выделение памяти под массив
-		for (int i = 0; i < size; i++) {
-			values[i] = other.values[i]; // копирование значений
-		}
-	}
-	//! оператор присваивания
-	Signal& operator=(const Signal& other) {
-		if (this == &other) return *this; // проверка на самоприсваивание
-		delete[] values; // освобождение старой памяти
-		size = other.size; // копирование размера
-		values = (size > 0) ? new double[size] : nullptr; // выделение памяти под новый массив
-		for (int i = 0; i < size; i++) {
-			values[i] = other.values[i]; // копирование значений
-		}
-		return *this; // возврат текущего объекта
-	}
+    /**
+     * @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё СЃРёРіРЅР°Р»Р° Р·Р°РґР°РЅРЅРѕРіРѕ СЂР°Р·РјРµСЂР°.
+     * @details Р’С‹РґРµР»СЏРµС‚ РїР°РјСЏС‚СЊ РїРѕРґ РјР°СЃСЃРёРІ Рё Р·Р°РїРѕР»РЅСЏРµС‚ РµРіРѕ РЅСѓР»СЏРјРё.
+     * @param n Р Р°Р·РјРµСЂ СЃРѕР·РґР°РІР°РµРјРѕРіРѕ СЃРёРіРЅР°Р»Р° (РєРѕР»РёС‡РµСЃС‚РІРѕ РѕС‚СЃС‡РµС‚РѕРІ).
+     */
+    Signal(int n) : size(n) {
+        values = new double[n]; // РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РїРѕРґ РјР°СЃСЃРёРІ
+        for (int i = 0; i < n; i++) {
+            values[i] = 0.0; // Р·Р°РїРѕР»РЅРµРЅРёРµ РјР°СЃСЃРёРІР° РЅСѓР»СЏРјРё
+        }
+    }
 
-	//! деструктор для освобождения памяти
-	~Signal() {
-		delete[] values; // освобождение памяти
-	}
-	//! установка значения сигнала по индексу
-	void setValue(int index, double x) {
-		if (index >= 0 && index < size) {
-			values[index] = x; // установка значения
-		}
-		if (index < 0 || index >= size) {
-			printf("Error: Index out of bounds\n"); // обработка ошибки выхода за границы
-		}
+    /**
+     * @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ.
+     * @param other РћСЂРёРіРёРЅР°Р»СЊРЅС‹Р№ РѕР±СЉРµРєС‚ СЃРёРіРЅР°Р»Р°, РєРѕРїРёСЏ РєРѕС‚РѕСЂРѕРіРѕ СЃРѕР·РґР°РµС‚СЃСЏ.
+     */
+    Signal(const Signal& other) : size(other.size) {
+        values = (size > 0) ? new double[size] : nullptr;
+        for (int i = 0; i < size; i++) {
+            values[i] = other.values[i];
+        }
+    }
 
-	}
-	//! получение значения сигнала по индексу
-	double getValue(int index) const {
-		if (index >= 0 && index < size) {
-			return values[index]; // возврат значения
-		}
-		else {
-			printf("Error: Index out of bounds\n"); // обработка ошибки выхода за границы
-			return 0.0; // возврат значения по умолчанию
-		}
-	}
-	//! получить размер сигнала
-	double getSize() const {
-		return size; // возврат текущего размера
-	}
-	//! вывод сигнала на экран
-	void print() const {
-		for (int i = 0; i < size; i++) 
-			std::cout << values[i] << " "; // вывод значений
-		std::cout << std::endl; // переход на новую строку
-	}
-	// ===== перегрузка операторов =====
+    /**
+     * @brief РћРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ.
+     * @param other РћР±СЉРµРєС‚ СЃРёРіРЅР°Р»Р° РґР»СЏ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ.
+     * @return РЎСЃС‹Р»РєР° РЅР° С‚РµРєСѓС‰РёР№ РёР·РјРµРЅРµРЅРЅС‹Р№ РѕР±СЉРµРєС‚.
+     */
+    Signal& operator=(const Signal& other) {
+        if (this == &other) return *this; // РїСЂРѕРІРµСЂРєР° РЅР° СЃР°РјРѕРїСЂРёСЃРІР°РёРІР°РЅРёРµ
+        delete[] values; // РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ СЃС‚Р°СЂРѕР№ РїР°РјСЏС‚Рё
+        size = other.size;
+        values = (size > 0) ? new double[size] : nullptr;
+        for (int i = 0; i < size; i++) {
+            values[i] = other.values[i];
+        }
+        return *this;
+    }
 
-	// сложение сигналов
-	Signal operator+(const Signal& other) const {
-		int maxSize = (size > other.size) ? size : other.size; // определение максимального размера
-		Signal result(maxSize); // создание результирующего сигнала
-		for (int i = 0; i < maxSize; i++) {
-			double val1 = (i < size) ? values[i] : 0.0; // значение первого сигнала или 0
-			double val2 = (i < other.size) ? other.values[i] : 0.0; // значение второго сигнала или 0
-			result.values[i] = val1 + val2; // сложение значений
-		}
-		return result; // возврат результирующего сигнала
-	}
+    /**
+     * @brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ. РћСЃРІРѕР±РѕР¶РґР°РµС‚ РІС‹РґРµР»РµРЅРЅСѓСЋ РїР°РјСЏС‚СЊ.
+     */
+    ~Signal() {
+        delete[] values;
+    }
 
-	//умножение на действительное число
-	Signal operator*(double scalar) const {
-		Signal result(size); // создание результирующего сигнала
-		for (int i = 0; i < size; i++) {
-			result.values[i] = values[i] * scalar; // умножение значения на скаляр
-		}
-		return result; // возврат результирующего сигнала
-	}
+    /**
+     * @brief РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ Р·РЅР°С‡РµРЅРёРµ РєРѕРЅРєСЂРµС‚РЅРѕРіРѕ РѕС‚СЃС‡РµС‚Р° СЃРёРіРЅР°Р»Р°.
+     * @param index РРЅРґРµРєСЃ РѕС‚СЃС‡РµС‚Р° (РЅР°С‡РёРЅР°СЏ СЃ 0).
+     * @param val РќРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ.
+     */
+    void setValue(int index, double val) {
+        if (index >= 0 && index < size) {
+            values[index] = val;
+        }
+    }
 
-	//конкатенация сигналов (склейка)
-	Signal concat(const Signal& other) const {
-		Signal result(size + other.size); // создание результирующего сигнала
-		for (int i = 0; i < size; i++) {
-			result.values[i] = values[i]; // копирование значений первого сигнала
-		}
-		for (int i = 0; i < other.size; i++) {
-			result.values[size + i] = other.values[i]; // копирование значений второго сигнала
-		}
-		return result; // возврат результирующего сигнала
-	}
-	
+    /**
+     * @brief РџРѕР»СѓС‡Р°РµС‚ Р·РЅР°С‡РµРЅРёРµ РєРѕРЅРєСЂРµС‚РЅРѕРіРѕ РѕС‚СЃС‡РµС‚Р° СЃРёРіРЅР°Р»Р°.
+     * @param index РРЅРґРµРєСЃ РѕС‚СЃС‡РµС‚Р°.
+     * @return Р—РЅР°С‡РµРЅРёРµ СЃРёРіРЅР°Р»Р° РїРѕ Р·Р°РґР°РЅРЅРѕРјСѓ РёРЅРґРµРєСЃСѓ РёР»Рё 0.0, РµСЃР»Рё РёРЅРґРµРєСЃ РІРЅРµ РіСЂР°РЅРёС†.
+     */
+    double getValue(int index) const {
+        if (index >= 0 && index < size) {
+            return values[index];
+        }
+        return 0.0;
+    }
 
+    /**
+     * @brief РџРѕР»СѓС‡Р°РµС‚ С‚РµРєСѓС‰РёР№ СЂР°Р·РјРµСЂ СЃРёРіРЅР°Р»Р°.
+     * @return РљРѕР»РёС‡РµСЃС‚РІРѕ РѕС‚СЃС‡РµС‚РѕРІ.
+     */
+    int getSize() const {
+        return size;
+    }
+
+    /**
+     * @brief Р’С‹РІРѕРґРёС‚ Р·РЅР°С‡РµРЅРёСЏ СЃРёРіРЅР°Р»Р° РІ СЃС‚Р°РЅРґР°СЂС‚РЅС‹Р№ РїРѕС‚РѕРє РІС‹РІРѕРґР° (РєРѕРЅСЃРѕР»СЊ).
+     */
+    void print() const {
+        for (int i = 0; i < size; i++)
+            std::cout << values[i] << " ";
+        std::cout << std::endl;
+    }
+
+    // ===== РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂРѕРІ =====
+
+    /**
+     * @brief РћРїРµСЂР°С‚РѕСЂ СЃР»РѕР¶РµРЅРёСЏ РґРІСѓС… СЃРёРіРЅР°Р»РѕРІ.
+     * @details Р•СЃР»Рё СЃРёРіРЅР°Р»С‹ СЂР°Р·РЅРѕР№ РґР»РёРЅС‹, СЂР°Р·РјРµСЂ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЂР°РІРµРЅ РјР°РєСЃРёРјР°Р»СЊРЅРѕР№ РґР»РёРЅРµ.
+     * РќРµРґРѕСЃС‚Р°СЋС‰РёРµ РѕС‚СЃС‡РµС‚С‹ РєРѕСЂРѕС‚РєРѕРіРѕ СЃРёРіРЅР°Р»Р° СЃС‡РёС‚Р°СЋС‚СЃСЏ СЂР°РІРЅС‹РјРё 0.
+     * @param other Р’С‚РѕСЂРѕР№ СЃРёРіРЅР°Р» РґР»СЏ СЃР»РѕР¶РµРЅРёСЏ.
+     * @return РќРѕРІС‹Р№ РѕР±СЉРµРєС‚ СЃРёРіРЅР°Р»Р°, СЃРѕРґРµСЂР¶Р°С‰РёР№ РїРѕРєРѕРјРїРѕРЅРµРЅС‚РЅСѓСЋ СЃСѓРјРјСѓ.
+     */
+    Signal operator+(const Signal& other) const {
+        int maxSize = (size > other.size) ? size : other.size;
+        Signal result(maxSize);
+        for (int i = 0; i < maxSize; i++) {
+            double val1 = (i < size) ? values[i] : 0.0;
+            double val2 = (i < other.size) ? other.values[i] : 0.0;
+            result.values[i] = val1 + val2;
+        }
+        return result;
+    }
+
+    /**
+     * @brief РћРїРµСЂР°С‚РѕСЂ СѓРјРЅРѕР¶РµРЅРёСЏ СЃРёРіРЅР°Р»Р° РЅР° СЃРєР°Р»СЏСЂ (С‡РёСЃР»Рѕ).
+     * @param scalar Р”РµР№СЃС‚РІРёС‚РµР»СЊРЅРѕРµ С‡РёСЃР»Рѕ РґР»СЏ СѓРјРЅРѕР¶РµРЅРёСЏ.
+     * @return РќРѕРІС‹Р№ РјР°СЃС€С‚Р°Р±РёСЂРѕРІР°РЅРЅС‹Р№ СЃРёРіРЅР°Р».
+     */
+    Signal operator*(double scalar) const {
+        Signal result(size);
+        for (int i = 0; i < size; i++) {
+            result.values[i] = values[i] * scalar;
+        }
+        return result;
+    }
+
+    /**
+     * @brief РљРѕРЅРєР°С‚РµРЅР°С†РёСЏ (СЃРєР»РµР№РєР°) РґРІСѓС… СЃРёРіРЅР°Р»РѕРІ.
+     * @param other РЎРёРіРЅР°Р», РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РїСЂРёСЃРѕРµРґРёРЅРµРЅ РІ РєРѕРЅРµС† С‚РµРєСѓС‰РµРіРѕ.
+     * @return РќРѕРІС‹Р№ СЃРёРіРЅР°Р», СЃРѕРґРµСЂР¶Р°С‰РёР№ СЌР»РµРјРµРЅС‚С‹ РѕР±РѕРёС… СЃРёРіРЅР°Р»РѕРІ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ.
+     */
+    Signal concat(const Signal& other) const {
+        Signal result(size + other.size);
+        for (int i = 0; i < size; i++) {
+            result.values[i] = values[i];
+        }
+        for (int i = 0; i < other.size; i++) {
+            result.values[size + i] = other.values[i];
+        }
+        return result;
+    }
 };

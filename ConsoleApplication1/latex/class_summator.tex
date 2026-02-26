@@ -1,0 +1,144 @@
+\doxysection{Класс Summator}
+\hypertarget{class_summator}{}\label{class_summator}\index{Summator@{Summator}}
+
+
+Класс для взвешенного суммирования двух сигналов.  
+
+
+
+
+{\ttfamily \+\#include $<$Summator.\+h$>$}
+
+Граф наследования:\+Summator:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_summator}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_summator_a3942fafa6aa2bd2c4c8de5a7ab22036d}{Summator}} (const std::\+string \&nm, double uu, double vv)
+\begin{DoxyCompactList}\small\item\em Конструктор сумматора. \end{DoxyCompactList}\item 
+double \doxymbox{\hyperlink{class_summator_a69e197690b6ad865e5cfb89378e2f21e}{process}} (const std::\+vector$<$ double $>$ \&inputs) override
+\begin{DoxyCompactList}\small\item\em Обработка вектора входных данных. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_summator_a976ef651b3985e3d9d7262f9358b194f}{reset}} () override
+\begin{DoxyCompactList}\small\item\em Метод сброса внутреннего состояния. \end{DoxyCompactList}\item 
+double \doxymbox{\hyperlink{class_summator_a62d75e17e18aaaecc62e4ffadbb2dc34}{operator()}} (double x1, double x2)
+\begin{DoxyCompactList}\small\item\em Перегрузка оператора вызова функции "{}()"{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Открытые члены унаследованные от \doxymbox{\hyperlink{class_block}{Block}}}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_block_a5a936b342fd4321631d0e3bc99c1528b}{Block}} (const std::\+string \&nm)
+\begin{DoxyCompactList}\small\item\em Конструктор инициализации блока. \end{DoxyCompactList}\item 
+virtual \doxymbox{\hyperlink{class_block_aece461956ee55f531533348cab5487bf}{\texorpdfstring{$\sim$}{\string~}\+Block}} ()=default
+\begin{DoxyCompactList}\small\item\em Виртуальный деструктор. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_block_a7215634e82424565fe4896e8a8275fdf}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Получить имя блока. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Дополнительные унаследованные члены}
+\doxysubsection*{Защищенные данные унаследованные от \doxymbox{\hyperlink{class_block}{Block}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+string \doxymbox{\hyperlink{class_block_a03c4cde61bd157be1a585643ec5c7817}{name}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс для взвешенного суммирования двух сигналов. 
+
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}
+
+Наследуется от класса \doxylink{class_block}{Block}. Реализует математическую операцию:\+ y = u \texorpdfstring{$\ast$}{*} x1 + v \texorpdfstring{$\ast$}{*} x2, где u и v — весовые коэффициенты. 
+
+\label{doc-constructors}
+\Hypertarget{class_summator_doc-constructors}
+\doxysubsection{Конструктор(ы)}
+\Hypertarget{class_summator_a3942fafa6aa2bd2c4c8de5a7ab22036d}\index{Summator@{Summator}!Summator@{Summator}}
+\index{Summator@{Summator}!Summator@{Summator}}
+\doxysubsubsection{\texorpdfstring{Summator()}{Summator()}}
+{\footnotesize\ttfamily \label{class_summator_a3942fafa6aa2bd2c4c8de5a7ab22036d} 
+Summator::\+\+Summator (\begin{DoxyParamCaption}\item[{const std::\+string \&}]{nm}{, }\item[{double}]{uu}{, }\item[{double}]{vv}{}\end{DoxyParamCaption})}
+
+
+
+Конструктор сумматора. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em nm} & Имя блока сумматора. \\
+\hline
+{\em uu} & Коэффициент усиления для первого сигнала. \\
+\hline
+{\em vv} & Коэффициент усиления для второго сигнала. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_summator_doc-func-members}
+\doxysubsection{Методы}
+\Hypertarget{class_summator_a62d75e17e18aaaecc62e4ffadbb2dc34}\index{Summator@{Summator}!operator()@{operator()}}
+\index{operator()@{operator()}!Summator@{Summator}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily \label{class_summator_a62d75e17e18aaaecc62e4ffadbb2dc34} 
+double Summator::\+operator() (\begin{DoxyParamCaption}\item[{double}]{x1}{, }\item[{double}]{x2}{}\end{DoxyParamCaption})}
+
+
+
+Перегрузка оператора вызова функции "{}()"{}. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em x1} & Значение первого сигнала. \\
+\hline
+{\em x2} & Значение второго сигнала. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Результат вычисления:\+ u \texorpdfstring{$\ast$}{*} x1 + v \texorpdfstring{$\ast$}{*} x2. 
+\end{DoxyReturn}
+\Hypertarget{class_summator_a69e197690b6ad865e5cfb89378e2f21e}\index{Summator@{Summator}!process@{process}}
+\index{process@{process}!Summator@{Summator}}
+\doxysubsubsection{\texorpdfstring{process()}{process()}}
+{\footnotesize\ttfamily \label{class_summator_a69e197690b6ad865e5cfb89378e2f21e} 
+double Summator::\+process (\begin{DoxyParamCaption}\item[{const std::\+vector$<$ double $>$ \&}]{inputs}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Обработка вектора входных данных. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em inputs} & Вектор входных данных. Ожидается, что размер вектора равен 2 (два слагаемых). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Результат взвешенного суммирования. 
+\end{DoxyReturn}
+
+
+Замещает \doxymbox{\hyperlink{class_block_a290954267b7e711b294851cb63460a33}{Block}}.
+
+\Hypertarget{class_summator_a976ef651b3985e3d9d7262f9358b194f}\index{Summator@{Summator}!reset@{reset}}
+\index{reset@{reset}!Summator@{Summator}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily \label{class_summator_a976ef651b3985e3d9d7262f9358b194f} 
+void Summator::\+reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Метод сброса внутреннего состояния. 
+
+Для сумматора метод пуст, так как блок не имеет памяти (не хранит предыдущие состояния). 
+
+Замещает \doxymbox{\hyperlink{class_block_a87218dfb19b38554b77a04e97bc3fb8e}{Block}}.
+
+
+
+Объявления и описания членов классов находятся в файлах:\+\begin{DoxyCompactItemize}
+\item 
+Summator.\+h\item 
+Summator.\+cpp\end{DoxyCompactItemize}

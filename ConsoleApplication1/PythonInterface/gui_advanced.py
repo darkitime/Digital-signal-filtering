@@ -1,3 +1,12 @@
+"""
+Графический интерфейс системы обработки сигналов.
+
+Этот модуль предоставляет оконное приложение на базе библиотеки Tkinter.
+Оно позволяет пользователю интерактивно выбирать тип сигнала, настраивать параметры 
+КИХ и БИХ фильтров и в реальном времени визуализировать результаты обработки 
+через встроенные графики Matplotlib. Вся вычислительная нагрузка передается в C++ DLL.
+"""
+
 import tkinter as tk
 from tkinter import ttk, messagebox
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -7,183 +16,163 @@ import os
 import math
 import random
 
-# --- 1. ЗАГРУЗКА DLL ---
-dll_name = "ConsoleApplication1.dll"
-if not os.path.exists(dll_name):
-    messagebox.showerror("Ошибка", f"Файл {dll_name} не найден!")
-    exit(1)
+def to_c_double_array(lst):
+    """
+    Конвертирует Python-список в C-массив типа double для передачи в DLL.
 
-try:
-    lib = ctypes.CDLL(os.path.abspath(dll_name))
-except OSError as e:
-    messagebox.showerror("Ошибка загрузки DLL", str(e))
-    exit(1)
+    :param lst: Список чисел.
+    :type lst: list
+    :return: Массив ctypes.c_double.
+    """
+    return (ctypes.c_double * len(lst))(*lst)
 
-# Типы аргументов
-lib.createSystem.restype = ctypes.c_void_p
-lib.destroySystem.argtypes = [ctypes.c_void_p]
-lib.addFIR.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.POINTER(ctypes.c_double), ctypes.c_int]
-lib.addIIR.argtypes = [
-    ctypes.c_void_p, 
-    ctypes.c_char_p, 
-    ctypes.POINTER(ctypes.c_double), ctypes.c_int, # b
-    ctypes.POINTER(ctypes.c_double), ctypes.c_int  # a
-]
+# --- 1. БЕЗОПАСНАЯ ЗАГРУЗКА DLL ---
+lib = None
 
-# Добавляем функцию получения ошибки
-try:
-    lib.getLastError.restype = ctypes.c_char_p
-    lib.getLastError.argtypes = []
-except AttributeError:
-    print("Внимание: функция getLastError не найдена в DLL. Пересоберите DLL.")
+# Проверяем, не читает ли нас сейчас Sphinx
+if os.environ.get('SPHINX_BUILD') != '1':
+    
+    dll_name = "ConsoleApplication1.dll"
+    if not os.path.exists(dll_name):
+        messagebox.showerror("Ошибка", f"Файл {dll_name} не найден!")
+        exit(1)
+
+    try:
+        lib = ctypes.CDLL(os.path.abspath(dll_name))
+    except OSError as e:
+        messagebox.showerror("Ошибка загрузки DLL", str(e))
+        exit(1)
+
+    # Типы аргументов
+    lib.createSystem.restype = ctypes.c_void_p
+    lib.destroySystem.argtypes = [ctypes.c_void_p]
+    lib.addFIR.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.POINTER(ctypes.c_double), ctypes.c_int]
+    lib.addIIR.argtypes = [
+        ctypes.c_void_p, ctypes.c_char_p, 
+        ctypes.POINTER(ctypes.c_double), ctypes.c_int,
+        ctypes.POINTER(ctypes.c_double), ctypes.c_int
+    ]
+    lib.processSignal.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.POINTER(ctypes.c_double), ctypes.POINTER(ctypes.c_double), ctypes.c_int]
+
+    try:
+        lib.getLastError.restype = ctypes.c_char_p
+    except AttributeError:
+        pass
 
 def check_for_error():
-    """Проверяет, была ли ошибка в C++, и кидает исключение Python"""
-    if not hasattr(lib, 'getLastError'):
-        return
-    err_ptr = lib.getLastError()
-    if err_ptr:
-        # Конвертируем bytes в string
-        err_msg = err_ptr.decode('utf-8', errors='replace')
-        # Кидаем исключение, чтобы попасть в блок except
-        raise Exception(f"C++ Error: {err_msg}")
+    """
+    Проверяет наличие исключений, перехваченных внутри C++ DLL.
+    """
+    if lib and hasattr(lib, 'getLastError'):
+        err_ptr = lib.getLastError()
+        if err_ptr:
+            raise Exception(err_ptr.decode('utf-8'))
 
-if hasattr(lib, 'processSignal'):
-    lib.processSignal.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.POINTER(ctypes.c_double), 
-                                  ctypes.POINTER(ctypes.c_double), ctypes.c_int]
+class SignalApp:
+    """
+    Главный класс графического приложения (GUI).
 
-def to_c_double_array(data):
-    return (ctypes.c_double * len(data))(*data)
+    Управляет жизненным циклом интерфейса Tkinter, обрабатывает события кнопок 
+    и связывает логику пользовательского ввода с вызовами функций библиотеки C++.
+    Включает в себя интеграцию графиков Matplotlib непосредственно в окно приложения.
+    """
 
-# --- 2. КЛАСС ПРИЛОЖЕНИЯ ---
-class AdvancedFilterApp:
     def __init__(self, root):
-        self.root = root
-        self.root.title("DSP Лаборатория: FIR и IIR")
-        self.root.geometry("1100x700")
+        """
+        Инициализирует интерфейс пользователя, создает графики и элементы управления.
 
-        # Панель управления (слева)
-        control_frame = tk.Frame(root, padx=15, pady=15, width=350, bg="#f0f0f0")
+        :param root: Корневой виджет (главное окно) Tkinter.
+        :type root: tk.Tk
+        """
+        self.root = root
+        self.root.title("Продвинутая обработка сигналов (C++ Core)")
+        
+        # Переменные интерфейса
+        self.signal_type_var = tk.StringVar(value="Синус + Шум")
+        self.filter_type_var = tk.StringVar(value="FIR (Скользящее среднее)")
+        
+        self.setup_ui()
+        self.system = lib.createSystem()
+
+    def setup_ui(self):
+        """
+        Создает и размещает все визуальные элементы управления на форме (кнопки, списки, канвас графика).
+        """
+        control_frame = ttk.Frame(self.root, padding=10)
         control_frame.pack(side=tk.LEFT, fill=tk.Y)
 
-        # === Секция 1: Генератор Сигнала ===
-        tk.Label(control_frame, text="1. Генератор сигнала", bg="#f0f0f0", font=("Arial", 11, "bold")).pack(anchor="w", pady=(0, 5))
-        
-        tk.Label(control_frame, text="Тип сигнала:", bg="#f0f0f0").pack(anchor="w")
-        self.signal_type = ttk.Combobox(control_frame, values=["Синусоида с шумом", "Ступенька (Step)", "Импульс"])
-        self.signal_type.current(0)
-        self.signal_type.pack(fill=tk.X, pady=(0, 10))
+        ttk.Label(control_frame, text="Тип сигнала:").pack(anchor=tk.W, pady=5)
+        ttk.Combobox(control_frame, textvariable=self.signal_type_var, 
+                     values=["Синус + Шум", "Меандр + Шум", "Только шум"]).pack(fill=tk.X)
 
-        tk.Label(control_frame, text="Частота (для синуса):", bg="#f0f0f0").pack(anchor="w")
-        self.entry_freq = tk.Entry(control_frame)
-        self.entry_freq.insert(0, "0.05")
-        self.entry_freq.pack(fill=tk.X, pady=(0, 15))
+        ttk.Label(control_frame, text="Тип фильтра:").pack(anchor=tk.W, pady=5)
+        ttk.Combobox(control_frame, textvariable=self.filter_type_var, 
+                     values=["FIR (Скользящее среднее)", "IIR (Рекурсивный сглаживающий)"]).pack(fill=tk.X)
 
-        # === Секция 2: Настройка Фильтра ===
-        tk.Label(control_frame, text="2. Параметры Фильтра", bg="#f0f0f0", font=("Arial", 11, "bold")).pack(anchor="w", pady=(0, 5))
+        ttk.Button(control_frame, text="Сгенерировать и Обработать", command=self.process_data).pack(pady=20, fill=tk.X)
 
-        tk.Label(control_frame, text="Тип фильтра:", bg="#f0f0f0").pack(anchor="w")
-        self.filter_type = ttk.Combobox(control_frame, values=["FIR (КИХ)", "IIR (БИХ)"])
-        self.filter_type.current(0)
-        self.filter_type.bind("<<ComboboxSelected>>", self.toggle_iir_fields)
-        self.filter_type.pack(fill=tk.X, pady=(0, 10))
+        # Зона графика
+        self.fig, self.ax = plt.subplots(figsize=(8, 5))
+        self.canvas = FigureCanvasTkAgg(self.fig, master=self.root)
+        self.canvas.get_tk_widget().pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
-        # Коэффициенты B (Числитель)
-        tk.Label(control_frame, text="Коэффициенты B (вход):\n(для FIR это просто coeffs)", bg="#f0f0f0").pack(anchor="w")
-        self.entry_b = tk.Entry(control_frame)
-        self.entry_b.insert(0, "0.2, 0.2, 0.2, 0.2, 0.2") 
-        self.entry_b.pack(fill=tk.X, pady=(0, 10))
+    def process_data(self):
+        """
+        Основной метод обработки, вызываемый при нажатии кнопки в интерфейсе.
 
-        # Коэффициенты A (Знаменатель) - только для IIR
-        self.lbl_a = tk.Label(control_frame, text="Коэффициенты A (обратная связь):\n(Первый должен быть 1.0)", bg="#f0f0f0")
-        self.entry_a = tk.Entry(control_frame)
-        self.entry_a.insert(0, "1.0, -0.9") 
-        
-        self.btn_run = tk.Button(control_frame, text="РАССЧИТАТЬ", 
-                                 bg="#2196F3", fg="white", font=("Arial", 12, "bold"),
-                                 command=self.run_processing)
-        self.btn_run.pack(fill=tk.X, pady=30)
+        Выполняет генерацию входного массива данных в зависимости от выбора пользователя, 
+        настраивает выбранный фильтр в C++ системе (КИХ или БИХ), 
+        пропускает массив через DLL и обновляет график Matplotlib результатами.
 
-        # График
-        plot_frame = tk.Frame(root)
-        plot_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
-        self.fig, self.ax = plt.subplots(figsize=(5, 4), dpi=100)
-        self.canvas = FigureCanvasTkAgg(self.fig, master=plot_frame)
-        self.canvas.draw()
-        self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-
-        self.toggle_iir_fields()
-
-    def toggle_iir_fields(self, event=None):
-        if self.filter_type.get() == "IIR (БИХ)":
-            self.lbl_a.pack(anchor="w")
-            self.entry_a.pack(fill=tk.X, pady=(0, 10))
-            if self.entry_b.get().startswith("0.2"): 
-                self.entry_b.delete(0, tk.END); self.entry_b.insert(0, "0.1")
-        else:
-            self.lbl_a.pack_forget()
-            self.entry_a.pack_forget()
-            if self.entry_b.get() == "0.1":
-                self.entry_b.delete(0, tk.END); self.entry_b.insert(0, "0.2, 0.2, 0.2, 0.2, 0.2")
-
-    def run_processing(self):
-        system = None
+        :raises Exception: Перехватывает ошибки от DLL и показывает их пользователю в диалоговом окне.
+        """
         try:
-            # 1. Генерация сигнала
-            N = 300
-            input_data = []
-            sig_type = self.signal_type.get()
-            freq = float(self.entry_freq.get())
+            # Сброс старой системы и создание новой для чистоты эксперимента
+            lib.destroySystem(self.system)
+            self.system = lib.createSystem()
 
+            filt_type = self.filter_type_var.get()
+            if "FIR" in filt_type:
+                coeffs = [0.2, 0.2, 0.2, 0.2, 0.2]
+                lib.addFIR(self.system, b"MyFilter", to_c_double_array(coeffs), len(coeffs))
+            else:
+                b_coeffs = [0.1, 0.1]
+                a_coeffs = [1.0, -0.8]
+                lib.addIIR(self.system, b"MyFilter", to_c_double_array(b_coeffs), len(b_coeffs), to_c_double_array(a_coeffs), len(a_coeffs))
+
+            N = 200
+            input_data = []
+            sig_type = self.signal_type_var.get()
+            
             for i in range(N):
-                val = 0.0
-                if sig_type == "Синусоида с шумом":
-                    val = math.sin(i * freq) * 3.0 + random.uniform(-0.5, 0.5)
-                elif sig_type == "Ступенька (Step)":
-                    val = 1.0 if i > 50 else 0.0
-                    val += random.uniform(-0.05, 0.05) 
-                elif sig_type == "Импульс":
-                    val = 5.0 if i == 50 else 0.0
+                noise = random.uniform(-2.0, 2.0)
+                if "Синус" in sig_type:
+                    val = math.sin(i * 0.1) * 5.0 + noise
+                elif "Меандр" in sig_type:
+                    val = 5.0 if (i // 20) % 2 == 0 else -5.0
+                    val += noise
+                else:
+                    val = noise
                 input_data.append(val)
 
-            # 2. Подготовка C++
-            system = lib.createSystem()
-            check_for_error() # <-- ПРОВЕРКА ПОСЛЕ СОЗДАНИЯ
-
-            # Считываем данные из GUI (ЭТО БЫЛО ПРОПУЩЕНО)
-            filt_type = self.filter_type.get()
-            
-            b_str = self.entry_b.get()
-            b_coeffs = [float(x) for x in b_str.split(',')]
-            c_b = to_c_double_array(b_coeffs)
-
-            if filt_type == "FIR (КИХ)":
-                lib.addFIR(system, b"MyFilter", c_b, len(b_coeffs))
-                check_for_error() # <-- ПРОВЕРКА
-            else:
-                a_str = self.entry_a.get()
-                a_coeffs = [float(x) for x in a_str.split(',')]
-                c_a = to_c_double_array(a_coeffs)
-                lib.addIIR(system, b"MyFilter", c_b, len(b_coeffs), c_a, len(a_coeffs))
-                check_for_error() # <-- ПРОВЕРКА
-
-            # 3. Расчет
             c_input = to_c_double_array(input_data)
             output_data = [0.0] * N
             c_output = to_c_double_array(output_data)
 
             if hasattr(lib, 'processSignal'):
-                lib.processSignal(system, b"MyFilter", c_input, c_output, N)
-                check_for_error() # <-- ГЛАВНАЯ ПРОВЕРКА
+                lib.processSignal(self.system, b"MyFilter", c_input, c_output, N)
+                check_for_error()
             else:
                 lib.computeBlock.restype = ctypes.c_double
-                lib.resetAll(system)
+                try:
+                    lib.resetAll(self.system)
+                except:
+                    pass
                 for i in range(N):
-                    c_output[i] = lib.computeBlock(system, b"MyFilter", ctypes.c_double(input_data[i]))
-                    # Если внутри computeBlock произошла ошибка, она записалась, проверим её
+                    c_output[i] = lib.computeBlock(self.system, b"MyFilter", ctypes.c_double(input_data[i]))
                     check_for_error()
 
-            # 4. Визуализация
+            # Визуализация
             self.ax.clear()
             self.ax.plot(input_data, label='Вход', color='#CCCCCC', linestyle='--')
             self.ax.plot(list(c_output), label='Выход', color='#FF5722', linewidth=2)
@@ -193,14 +182,16 @@ class AdvancedFilterApp:
             self.canvas.draw()
 
         except Exception as e:
-            # Выводим ошибку (в том числе C++) в красивое окно
-            messagebox.showerror("Ошибка выполнения", str(e))
-        finally:
-            # Очистка ресурсов
-            if system:
-                lib.destroySystem(system)
+            messagebox.showerror("Ошибка выполнения", f"Внутренняя ошибка библиотеки:\n{e}")
+
+    def __del__(self):
+        """
+        Деструктор класса. Корректно очищает память системы в C++.
+        """
+        if hasattr(self, 'system') and self.system:
+            lib.destroySystem(self.system)
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = AdvancedFilterApp(root)
+    app = SignalApp(root)
     root.mainloop()

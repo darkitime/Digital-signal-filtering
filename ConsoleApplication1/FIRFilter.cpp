@@ -1,4 +1,4 @@
-﻿#include "FIRFilter.h"
+#include "FIRFilter.h"
 #include <cassert>
 
 FIRFilter::FIRFilter(const std::string& nm, const std::vector<double>& coefficients)

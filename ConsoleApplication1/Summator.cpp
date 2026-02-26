@@ -6,15 +6,15 @@ Summator::Summator(const std::string& nm, double uu, double vv)
 }
 
 double Summator::process(const std::vector<double>& inputs) {
-	assert(inputs.size() == 2); // Сумматор принимает ровно 2 входа
+	assert(inputs.size() == 2); // РЎСѓРјРјР°С‚РѕСЂ РїСЂРёРЅРёРјР°РµС‚ СЂРѕРІРЅРѕ 2 РІС…РѕРґР°
 	return u * inputs[0] + v * inputs[1]; // y = u * x1 + v * x2
 }
 
 double Summator::operator()(double x1, double x2) {
-    return process({ x1, x2 }); // вызов process с двумя значениями
+    return process({ x1, x2 }); // РІС‹Р·РѕРІ process СЃ РґРІСѓРјСЏ Р·РЅР°С‡РµРЅРёСЏРјРё
 }
 
 void Summator::reset() {
-    // Сумматор не хранит состояние — ничего не делаем
+    // РЎСѓРјРјР°С‚РѕСЂ РЅРµ С…СЂР°РЅРёС‚ СЃРѕСЃС‚РѕСЏРЅРёРµ вЂ” РЅРёС‡РµРіРѕ РЅРµ РґРµР»Р°РµРј
 }
 

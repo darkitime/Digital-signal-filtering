@@ -1,0 +1,98 @@
+\doxysection{Signal.\+h}
+\hypertarget{_signal_8h_source}{}\label{_signal_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_signal_a00fbf11280965dbff6cc440e5345fd8f}{Signal}}\ \{}
+\DoxyCodeLine{00010\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{double}*\ values;\ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{int}\ size;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \doxymbox{\hyperlink{class_signal_a00fbf11280965dbff6cc440e5345fd8f}{Signal}}(\textcolor{keywordtype}{int}\ n)\ :\ size(n)\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ values\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{double}[n];\ \textcolor{comment}{//\ выделение\ памяти\ под\ массив}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ i++)\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ values[i]\ =\ 0.0;\ \textcolor{comment}{//\ заполнение\ массива\ нулями}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00031\ \ \ \ \ \doxymbox{\hyperlink{class_signal_a62e5d960ad4d79ac886cb33b05203d4f}{Signal}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_signal_a00fbf11280965dbff6cc440e5345fd8f}{Signal}}\&\ other)\ :\ size(other.size)\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ values\ =\ (size\ >\ 0)\ ?\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{double}[size]\ :\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ size;\ i++)\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ values[i]\ =\ other.values[i];}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00043\ \ \ \ \ \doxymbox{\hyperlink{class_signal_a00fbf11280965dbff6cc440e5345fd8f}{Signal}}\&\ \doxymbox{\hyperlink{class_signal_a21b263205b782a6f0be6ed6b45b9a513}{operator=}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_signal_a00fbf11280965dbff6cc440e5345fd8f}{Signal}}\&\ other)\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&other)\ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};\ \textcolor{comment}{//\ проверка\ на\ самоприсваивание}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ values;\ \textcolor{comment}{//\ освобождение\ старой\ памяти}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ size\ =\ other.size;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ values\ =\ (size\ >\ 0)\ ?\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{double}[size]\ :\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ size;\ i++)\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ values[i]\ =\ other.values[i];}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00057\ \ \ \ \ \doxymbox{\hyperlink{class_signal_ae7a1d116cda63e790bf9aab549d57d3a}{\string~Signal}}()\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ values;}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_signal_a091f9d0d99107c3db2ac1facd2732df6}{setValue}}(\textcolor{keywordtype}{int}\ index,\ \textcolor{keywordtype}{double}\ val)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ 0\ \&\&\ index\ <\ size)\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ values[index]\ =\ val;}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{class_signal_ad66bbf6ea7287fb981ff4edee73e7e1d}{getValue}}(\textcolor{keywordtype}{int}\ index)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ 0\ \&\&\ index\ <\ size)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ values[index];}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0.0;}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_signal_a8712299efea0ac384dd5d233faeaffa8}{getSize}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ size;}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_signal_ad022819b9462012fa0df934ce24868e4}{print}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ size;\ i++)}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ values[i]\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{comment}{//\ =====\ перегрузка\ операторов\ =====}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00110\ \ \ \ \ \doxymbox{\hyperlink{class_signal_a00fbf11280965dbff6cc440e5345fd8f}{Signal}}\ \doxymbox{\hyperlink{class_signal_a047ed85c540b81f20537bdd061750f7d}{operator+}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_signal_a00fbf11280965dbff6cc440e5345fd8f}{Signal}}\&\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ maxSize\ =\ (size\ >\ other.size)\ ?\ size\ :\ other.size;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_signal_a00fbf11280965dbff6cc440e5345fd8f}{Signal}}\ result(maxSize);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ maxSize;\ i++)\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ val1\ =\ (i\ <\ size)\ ?\ values[i]\ :\ 0.0;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ val2\ =\ (i\ <\ other.size)\ ?\ other.values[i]\ :\ 0.0;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ result.values[i]\ =\ val1\ +\ val2;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00119\ \ \ \ \ \}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00126\ \ \ \ \ \doxymbox{\hyperlink{class_signal_a00fbf11280965dbff6cc440e5345fd8f}{Signal}}\ \doxymbox{\hyperlink{class_signal_a452c495416a04ddf40d162220495fe78}{operator*}}(\textcolor{keywordtype}{double}\ scalar)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_signal_a00fbf11280965dbff6cc440e5345fd8f}{Signal}}\ result(size);}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ size;\ i++)\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ result.values[i]\ =\ values[i]\ *\ scalar;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00139\ \ \ \ \ \doxymbox{\hyperlink{class_signal_a00fbf11280965dbff6cc440e5345fd8f}{Signal}}\ \doxymbox{\hyperlink{class_signal_a142730b4c5d5ee27fe929423b8220b0b}{concat}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_signal_a00fbf11280965dbff6cc440e5345fd8f}{Signal}}\&\ other)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_signal_a00fbf11280965dbff6cc440e5345fd8f}{Signal}}\ result(size\ +\ other.size);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ size;\ i++)\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ result.values[i]\ =\ values[i];}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ other.size;\ i++)\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ result.values[size\ +\ i]\ =\ other.values[i];}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \};}
+
+\end{DoxyCode}

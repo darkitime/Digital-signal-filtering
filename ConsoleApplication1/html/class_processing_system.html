@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>My Project: Класс ProcessingSystem</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="aesthetics cow.jpg"/></td>
+  <td id="projectalign">
+   <div id="projectname">My Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Поиск',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('class_processing_system.html','','class_processing_system-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Класс ProcessingSystem</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Система управления графом обработки сигналов.  
+ <a href="#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_processing_system_8h_source.html">ProcessingSystem.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a062110af9831f0fd659596b7364fc440" id="r_a062110af9831f0fd659596b7364fc440"><td class="memItemLeft"><a id="a062110af9831f0fd659596b7364fc440" name="a062110af9831f0fd659596b7364fc440"></a>
+&#160;</td><td class="memItemRight"><b>ProcessingSystem</b> ()=default</td></tr>
+<tr class="memdesc:a062110af9831f0fd659596b7364fc440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конструктор по умолчанию. <br /></td></tr>
+<tr class="memitem:a262b5378cc499790f1d5bc77d3a67499" id="r_a262b5378cc499790f1d5bc77d3a67499"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a262b5378cc499790f1d5bc77d3a67499">addBlock</a> (std::unique_ptr&lt; <a class="el" href="class_block.html">Block</a> &gt; block)</td></tr>
+<tr class="memdesc:a262b5378cc499790f1d5bc77d3a67499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавляет новый вычислительный блок в систему.  <br /></td></tr>
+<tr class="memitem:a56e61555101f1527f547e3c23e6a4602" id="r_a56e61555101f1527f547e3c23e6a4602"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a56e61555101f1527f547e3c23e6a4602">connect</a> (const std::string &amp;outputBlock, const std::vector&lt; std::string &gt; &amp;sourceBlocks)</td></tr>
+<tr class="memdesc:a56e61555101f1527f547e3c23e6a4602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает связи (зависимости) для блока.  <br /></td></tr>
+<tr class="memitem:aa96d83d66b9505c4c0e38251af2c0666" id="r_aa96d83d66b9505c4c0e38251af2c0666"><td class="memItemLeft"><a class="el" href="class_block.html">Block</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa96d83d66b9505c4c0e38251af2c0666">getBlock</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:aa96d83d66b9505c4c0e38251af2c0666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получает "сырой" указатель на блок по его имени.  <br /></td></tr>
+<tr class="memitem:a2dfc2b33e927c6f65c46b59eb462b05c" id="r_a2dfc2b33e927c6f65c46b59eb462b05c"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a2dfc2b33e927c6f65c46b59eb462b05c">computeBlock</a> (const std::string &amp;name, double input)</td></tr>
+<tr class="memdesc:a2dfc2b33e927c6f65c46b59eb462b05c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Рекурсивный расчет выхода конкретного блока с учетом всех его зависимостей.  <br /></td></tr>
+<tr class="memitem:a657964b0f31c5ba831394e8ac599a68d" id="r_a657964b0f31c5ba831394e8ac599a68d"><td class="memItemLeft">std::unordered_map&lt; std::string, double &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a657964b0f31c5ba831394e8ac599a68d">computeAll</a> (double input)</td></tr>
+<tr class="memdesc:a657964b0f31c5ba831394e8ac599a68d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисляет выходы абсолютно всех блоков системы для одного входа.  <br /></td></tr>
+<tr class="memitem:af46f2fb00074c7eea3372324892a8185" id="r_af46f2fb00074c7eea3372324892a8185"><td class="memItemLeft"><a id="af46f2fb00074c7eea3372324892a8185" name="af46f2fb00074c7eea3372324892a8185"></a>
+void&#160;</td><td class="memItemRight"><b>resetAll</b> ()</td></tr>
+<tr class="memdesc:af46f2fb00074c7eea3372324892a8185"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сбрасывает внутреннее состояние (буферы, память) всех блоков в системе. <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Система управления графом обработки сигналов. </p>
+<p>Позволяет регистрировать различные блоки (фильтры, сумматоры), устанавливать связи между ними (кто откуда берет данные) и выполнять комплексные вычисления над сигналом с автоматическим разрешением зависимостей. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Методы</h2>
+<a id="a262b5378cc499790f1d5bc77d3a67499" name="a262b5378cc499790f1d5bc77d3a67499"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a262b5378cc499790f1d5bc77d3a67499">&#9670;&#160;</a></span>addBlock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ProcessingSystem::addBlock </td>
+          <td>(</td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="class_block.html">Block</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>block</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Добавляет новый вычислительный блок в систему. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">block</td><td>Уникальный указатель (unique_ptr) на добавляемый блок. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Исключения</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::logic_error</td><td>Если указатель пуст или блок с таким именем уже существует. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a657964b0f31c5ba831394e8ac599a68d" name="a657964b0f31c5ba831394e8ac599a68d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a657964b0f31c5ba831394e8ac599a68d">&#9670;&#160;</a></span>computeAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt; std::string, double &gt; ProcessingSystem::computeAll </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>input</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Вычисляет выходы абсолютно всех блоков системы для одного входа. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>Значение внешнего входного сигнала. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Хеш-таблица (словарь), где ключ — имя блока, а значение — его выход. </dd></dl>
+
+</div>
+</div>
+<a id="a2dfc2b33e927c6f65c46b59eb462b05c" name="a2dfc2b33e927c6f65c46b59eb462b05c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dfc2b33e927c6f65c46b59eb462b05c">&#9670;&#160;</a></span>computeBlock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double ProcessingSystem::computeBlock </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>input</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Рекурсивный расчет выхода конкретного блока с учетом всех его зависимостей. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Имя блока, выход которого нужно вычислить. </td></tr>
+    <tr><td class="paramname">input</td><td>Значение внешнего входного сигнала системы. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Вычисленное выходное значение указанного блока. </dd></dl>
+<dl class="exception"><dt>Исключения</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::logic_error</td><td>Если блок не найден в системе. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a56e61555101f1527f547e3c23e6a4602" name="a56e61555101f1527f547e3c23e6a4602"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56e61555101f1527f547e3c23e6a4602">&#9670;&#160;</a></span>connect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ProcessingSystem::connect </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>outputBlock</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>sourceBlocks</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает связи (зависимости) для блока. </p>
+<p>Указывает, что <span class="tt">outputBlock</span> должен получать данные на вход от <span class="tt">sourceBlocks</span>. </p><dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">outputBlock</td><td>Имя целевого блока, который принимает данные. </td></tr>
+    <tr><td class="paramname">sourceBlocks</td><td>Вектор имен блоков-источников. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Исключения</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::logic_error</td><td>Если указанные блоки не найдены в системе. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa96d83d66b9505c4c0e38251af2c0666" name="aa96d83d66b9505c4c0e38251af2c0666"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa96d83d66b9505c4c0e38251af2c0666">&#9670;&#160;</a></span>getBlock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_block.html">Block</a> * ProcessingSystem::getBlock </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Получает "сырой" указатель на блок по его имени. </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Имя искомого блока. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Указатель на объект <a class="el" href="class_block.html" title="Абстрактный базовый класс &quot;Блок обработки сигналов&quot;.">Block</a> или nullptr, если блок не найден. </dd></dl>
+
+</div>
+</div>
+<hr/>Объявления и описания членов класса находятся в файле:<ul>
+<li><a class="el" href="_processing_system_8h_source.html">ProcessingSystem.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="class_processing_system.html">ProcessingSystem</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>
