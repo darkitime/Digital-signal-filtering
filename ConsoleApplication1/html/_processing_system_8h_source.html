@@ -157,7 +157,7 @@ $(function(){initNavTree('_processing_system_8h_source.html','',''); });
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <a class="code hl_class" href="class_block.html">Block</a>* b = <a class="code hl_function" href="class_processing_system.html#aa96d83d66b9505c4c0e38251af2c0666">getBlock</a>(name);</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordflow">if</span> (!b) <span class="keywordflow">throw</span> std::logic_error(<span class="stringliteral">&quot;Block not found: &quot;</span> + name);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">return</span> b-&gt;process(inputs);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">return</span> b-&gt;<a class="code hl_function" href="class_block.html#a290954267b7e711b294851cb63460a33">process</a>(inputs);</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    }</div>
 </div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span></div>
@@ -182,6 +182,7 @@ $(function(){initNavTree('_processing_system_8h_source.html','',''); });
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>};</div>
 </div>
 <div class="ttc" id="aclass_block_html"><div class="ttname"><a href="class_block.html">Block</a></div><div class="ttdoc">Абстрактный базовый класс &quot;Блок обработки сигналов&quot;.</div><div class="ttdef"><b>Определения</b> Block.h:11</div></div>
+<div class="ttc" id="aclass_block_html_a290954267b7e711b294851cb63460a33"><div class="ttname"><a href="class_block.html#a290954267b7e711b294851cb63460a33">Block::process</a></div><div class="ttdeci">virtual double process(const std::vector&lt; double &gt; &amp;input)=0</div><div class="ttdoc">Абстрактный метод обработки входных данных.</div></div>
 <div class="ttc" id="aclass_processing_system_html_a062110af9831f0fd659596b7364fc440"><div class="ttname"><a href="class_processing_system.html#a062110af9831f0fd659596b7364fc440">ProcessingSystem::ProcessingSystem</a></div><div class="ttdeci">ProcessingSystem()=default</div><div class="ttdoc">Конструктор по умолчанию.</div></div>
 <div class="ttc" id="aclass_processing_system_html_a262b5378cc499790f1d5bc77d3a67499"><div class="ttname"><a href="class_processing_system.html#a262b5378cc499790f1d5bc77d3a67499">ProcessingSystem::addBlock</a></div><div class="ttdeci">void addBlock(std::unique_ptr&lt; Block &gt; block)</div><div class="ttdoc">Добавляет новый вычислительный блок в систему.</div><div class="ttdef"><b>Определения</b> ProcessingSystem.h:34</div></div>
 <div class="ttc" id="aclass_processing_system_html_a2dfc2b33e927c6f65c46b59eb462b05c"><div class="ttname"><a href="class_processing_system.html#a2dfc2b33e927c6f65c46b59eb462b05c">ProcessingSystem::computeBlock</a></div><div class="ttdeci">double computeBlock(const std::string &amp;name, double input)</div><div class="ttdoc">Рекурсивный расчет выхода конкретного блока с учетом всех его зависимостей.</div><div class="ttdef"><b>Определения</b> ProcessingSystem.h:76</div></div>

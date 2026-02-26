@@ -4,29 +4,44 @@
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
 \DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
-\DoxyCodeLine{00011\ }
-\DoxyCodeLine{00016\ \ \ \ \ \doxymbox{\hyperlink{api_8h_ad40199da2882c78c440b85c415be12fa}{\_\_declspec}}(dllexport)\ \textcolor{keywordtype}{void}*\ createSystem();}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00022\ \ \ \ \ \doxymbox{\hyperlink{api_8h_ad40199da2882c78c440b85c415be12fa}{\_\_declspec}}(dllexport)\ \textcolor{keywordtype}{void}\ destroySystem(\textcolor{keywordtype}{void}*\ systemPtr);}
-\DoxyCodeLine{00023\ }
-\DoxyCodeLine{00031\ \ \ \ \ \doxymbox{\hyperlink{api_8h_ad40199da2882c78c440b85c415be12fa}{\_\_declspec}}(dllexport)\ \textcolor{keywordtype}{void}\ addFIR(\textcolor{keywordtype}{void}*\ systemPtr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ coeffs,\ \textcolor{keywordtype}{int}\ n);}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00042\ \ \ \ \ \doxymbox{\hyperlink{api_8h_ad40199da2882c78c440b85c415be12fa}{\_\_declspec}}(dllexport)\ \textcolor{keywordtype}{void}\ addIIR(\textcolor{keywordtype}{void}*\ systemPtr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ b,\ \textcolor{keywordtype}{int}\ nB,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ a,\ \textcolor{keywordtype}{int}\ nA);}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00051\ \ \ \ \ \doxymbox{\hyperlink{api_8h_ad40199da2882c78c440b85c415be12fa}{\_\_declspec}}(dllexport)\ \textcolor{keywordtype}{void}\ addSummator(\textcolor{keywordtype}{void}*\ systemPtr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keywordtype}{double}\ u,\ \textcolor{keywordtype}{double}\ v);}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00060\ \ \ \ \ \doxymbox{\hyperlink{api_8h_ad40199da2882c78c440b85c415be12fa}{\_\_declspec}}(dllexport)\ \textcolor{keywordtype}{void}\ connect(\textcolor{keywordtype}{void}*\ systemPtr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ outputBlock,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}**\ sourceBlocks,\ \textcolor{keywordtype}{int}\ nSources);}
-\DoxyCodeLine{00061\ }
-\DoxyCodeLine{00069\ \ \ \ \ \doxymbox{\hyperlink{api_8h_ad40199da2882c78c440b85c415be12fa}{\_\_declspec}}(dllexport)\ \textcolor{keywordtype}{double}\ computeBlock(\textcolor{keywordtype}{void}*\ systemPtr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ blockName,\ \textcolor{keywordtype}{double}\ input);}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00075\ \ \ \ \ \doxymbox{\hyperlink{api_8h_ad40199da2882c78c440b85c415be12fa}{\_\_declspec}}(dllexport)\ \textcolor{keywordtype}{void}\ resetAll(\textcolor{keywordtype}{void}*\ systemPtr);}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00085\ \ \ \ \ \doxymbox{\hyperlink{api_8h_ad40199da2882c78c440b85c415be12fa}{\_\_declspec}}(dllexport)\ \textcolor{keywordtype}{void}\ processSignal(\textcolor{keywordtype}{void}*\ systemPtr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ blockName,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ input,\ \textcolor{keywordtype}{double}*\ output,\ \textcolor{keywordtype}{int}\ length);}
-\DoxyCodeLine{00086\ }
-\DoxyCodeLine{00092\ \ \ \ \ \doxymbox{\hyperlink{api_8h_ad40199da2882c78c440b85c415be12fa}{\_\_declspec}}(dllexport)\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ getLastError();}
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \}}
-\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00010\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ *\ Макрос\ API\_EXPORT\ скрывает\ специфичный\ для\ Windows\ синтаксис}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ *\ и\ решает\ проблему\ парсинга\ функций\ генератором\ документации\ Doxygen.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifndef\ API\_EXPORT}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#if\ defined(\_WIN32)\ ||\ defined(\_WIN64)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ API\_EXPORT\ \_\_declspec(dllexport)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ API\_EXPORT}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00023\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00030\ \ \ \ \ API\_EXPORT\ \textcolor{keywordtype}{void}*\ \doxymbox{\hyperlink{api_8h_a63f7cb0957ca7ee85a647549b5da0cf8}{createSystem}}();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00036\ \ \ \ \ API\_EXPORT\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{api_8h_af8edfc04ba1bb659ceb37fc074c31ddf}{destroySystem}}(\textcolor{keywordtype}{void}*\ systemPtr);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00045\ \ \ \ \ API\_EXPORT\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{api_8h_a6026e738851134d210b29e9978a7865f}{addFIR}}(\textcolor{keywordtype}{void}*\ systemPtr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ coeffs,\ \textcolor{keywordtype}{int}\ n);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00056\ \ \ \ \ API\_EXPORT\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{api_8h_af699a7a325ad04aa486ad317f0db3f1b}{addIIR}}(\textcolor{keywordtype}{void}*\ systemPtr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ b,\ \textcolor{keywordtype}{int}\ nB,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ a,\ \textcolor{keywordtype}{int}\ nA);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00065\ \ \ \ \ API\_EXPORT\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{api_8h_a057672065fbb798c175ddb42488fcc4c}{addSummator}}(\textcolor{keywordtype}{void}*\ systemPtr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ name,\ \textcolor{keywordtype}{double}\ u,\ \textcolor{keywordtype}{double}\ v);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00074\ \ \ \ \ API\_EXPORT\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{api_8h_a847e2e6c90526982cbe438039537bbd4}{connect}}(\textcolor{keywordtype}{void}*\ systemPtr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ outputBlock,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}**\ sourceBlocks,\ \textcolor{keywordtype}{int}\ nSources);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00083\ \ \ \ \ API\_EXPORT\ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{api_8h_aa1641f5705ff36bfa14e9769a14e43a0}{computeBlock}}(\textcolor{keywordtype}{void}*\ systemPtr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ blockName,\ \textcolor{keywordtype}{double}\ input);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00089\ \ \ \ \ API\_EXPORT\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{api_8h_a2f48f900fad1c0bc659bf35fcad1b854}{resetAll}}(\textcolor{keywordtype}{void}*\ systemPtr);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00099\ \ \ \ \ API\_EXPORT\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{api_8h_a68293c0a82a8fae270654b9e0d1265e9}{processSignal}}(\textcolor{keywordtype}{void}*\ systemPtr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ blockName,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}*\ input,\ \textcolor{keywordtype}{double}*\ output,\ \textcolor{keywordtype}{int}\ length);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00106\ \ \ \ \ API\_EXPORT\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \doxymbox{\hyperlink{api_8h_a95f386567ab6817d71bcf48e4dafd1b9}{getLastError}}();}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00109\ \}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}
