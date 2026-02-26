@@ -44,14 +44,12 @@
               <!-- Local TOC -->
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Документация клиентской части на Python</a><ul>
-<li><a class="reference internal" href="#module-gui_advanced">Графический интерфейс (GUI)</a><ul>
-<li><a class="reference internal" href="#gui_advanced.SignalApp"><code class="docutils literal notranslate"><span class="pre">SignalApp</span></code></a><ul>
-<li><a class="reference internal" href="#gui_advanced.SignalApp.process_data"><code class="docutils literal notranslate"><span class="pre">SignalApp.process_data()</span></code></a></li>
-<li><a class="reference internal" href="#gui_advanced.SignalApp.setup_ui"><code class="docutils literal notranslate"><span class="pre">SignalApp.setup_ui()</span></code></a></li>
+<li><a class="reference internal" href="#module-gui_app">Графический интерфейс (GUI)</a><ul>
+<li><a class="reference internal" href="#gui_app.FilterApp"><code class="docutils literal notranslate"><span class="pre">FilterApp</span></code></a><ul>
+<li><a class="reference internal" href="#gui_app.FilterApp.run_processing"><code class="docutils literal notranslate"><span class="pre">FilterApp.run_processing()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#gui_advanced.check_for_error"><code class="docutils literal notranslate"><span class="pre">check_for_error()</span></code></a></li>
-<li><a class="reference internal" href="#gui_advanced.to_c_double_array"><code class="docutils literal notranslate"><span class="pre">to_c_double_array()</span></code></a></li>
+<li><a class="reference internal" href="#gui_app.to_c_double_array"><code class="docutils literal notranslate"><span class="pre">to_c_double_array()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-PythonClient">Консольный клиент</a><ul>
@@ -91,59 +89,51 @@
 <h1>Документация клиентской части на Python<a class="headerlink" href="#python" title="Ссылка на этот заголовок"></a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<section id="module-gui_advanced">
-<span id="gui"></span><h2>Графический интерфейс (GUI)<a class="headerlink" href="#module-gui_advanced" title="Ссылка на этот заголовок"></a></h2>
-<p>Графический интерфейс системы обработки сигналов.</p>
-<p>Этот модуль предоставляет оконное приложение на базе библиотеки Tkinter.
-Оно позволяет пользователю интерактивно выбирать тип сигнала, настраивать параметры 
-КИХ и БИХ фильтров и в реальном времени визуализировать результаты обработки 
-через встроенные графики Matplotlib. Вся вычислительная нагрузка передается в C++ DLL.</p>
+<section id="module-gui_app">
+<span id="gui"></span><h2>Графический интерфейс (GUI)<a class="headerlink" href="#module-gui_app" title="Ссылка на этот заголовок"></a></h2>
+<p>Модуль графического интерфейса «Digital Filter Lab».</p>
+<p>Этот модуль реализует интерактивную лабораторию для тестирования цифровых фильтров.
+Пользователь может настраивать параметры генерируемого сигнала (частоту и шум) 
+и задавать произвольные коэффициенты КИХ-фильтра. Обработка данных выполняется 
+в высокопроизводительном ядре на C++ через DLL.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="gui_advanced.SignalApp">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gui_advanced.</span></span><span class="sig-name descname"><span class="pre">SignalApp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui_advanced.SignalApp" title="Ссылка на это определение"></a></dt>
+<dt class="sig sig-object py" id="gui_app.FilterApp">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">gui_app.</span></span><span class="sig-name descname"><span class="pre">FilterApp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui_app.FilterApp" title="Ссылка на это определение"></a></dt>
 <dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Главный класс графического приложения (GUI).</p>
-<p>Управляет жизненным циклом интерфейса Tkinter, обрабатывает события кнопок 
-и связывает логику пользовательского ввода с вызовами функций библиотеки C++.
-Включает в себя интеграцию графиков Matplotlib непосредственно в окно приложения.</p>
+<p>Главный класс приложения «Digital Filter Lab».</p>
+<p>Создает окно Tkinter, управляет полями ввода параметров фильтрации
+и отвечает за визуализацию графиков Matplotlib.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="gui_advanced.SignalApp.process_data">
-<span class="sig-name descname"><span class="pre">process_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui_advanced.SignalApp.process_data" title="Ссылка на это определение"></a></dt>
-<dd><p>Основной метод обработки, вызываемый при нажатии кнопки в интерфейсе.</p>
-<p>Выполняет генерацию входного массива данных в зависимости от выбора пользователя, 
-настраивает выбранный фильтр в C++ системе (КИХ или БИХ), 
-пропускает массив через DLL и обновляет график Matplotlib результатами.</p>
+<dt class="sig sig-object py" id="gui_app.FilterApp.run_processing">
+<span class="sig-name descname"><span class="pre">run_processing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui_app.FilterApp.run_processing" title="Ссылка на это определение"></a></dt>
+<dd><p>Основной цикл обработки данных.</p>
+<p>Считывает параметры из GUI, генерирует сигнал в Python,
+вызывает функции C++ DLL для фильтрации и обновляет график.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Исключение<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>Exception</strong> – Перехватывает ошибки от DLL и показывает их пользователю в диалоговом окне.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – Если введены некорректные данные (не числа).</p></li>
+<li><p><strong>Exception</strong> – При ошибках взаимодействия с библиотекой или пустом объекте системы.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="gui_advanced.SignalApp.setup_ui">
-<span class="sig-name descname"><span class="pre">setup_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui_advanced.SignalApp.setup_ui" title="Ссылка на это определение"></a></dt>
-<dd><p>Создает и размещает все визуальные элементы управления на форме (кнопки, списки, канвас графика).</p>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="gui_advanced.check_for_error">
-<span class="sig-prename descclassname"><span class="pre">gui_advanced.</span></span><span class="sig-name descname"><span class="pre">check_for_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui_advanced.check_for_error" title="Ссылка на это определение"></a></dt>
-<dd><p>Проверяет наличие исключений, перехваченных внутри C++ DLL.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="gui_advanced.to_c_double_array">
-<span class="sig-prename descclassname"><span class="pre">gui_advanced.</span></span><span class="sig-name descname"><span class="pre">to_c_double_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui_advanced.to_c_double_array" title="Ссылка на это определение"></a></dt>
-<dd><p>Конвертирует Python-список в C-массив типа double для передачи в DLL.</p>
+<dt class="sig sig-object py" id="gui_app.to_c_double_array">
+<span class="sig-prename descclassname"><span class="pre">gui_app.</span></span><span class="sig-name descname"><span class="pre">to_c_double_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gui_app.to_c_double_array" title="Ссылка на это определение"></a></dt>
+<dd><p>Преобразует список Python в массив C-типа double.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Параметры<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>lst</strong> (<em>list</em>) – Список чисел.</p>
+<dd class="field-odd"><p><strong>data</strong> (<em>list</em><em>[</em><em>float</em><em>]</em>) – Список числовых значений для конвертации.</p>
 </dd>
 <dt class="field-even">Результат<span class="colon">:</span></dt>
-<dd class="field-even"><p>Массив ctypes.c_double.</p>
+<dd class="field-even"><p>Массив ctypes, совместимый с функциями C++.</p>
+</dd>
+<dt class="field-odd">Тип результата<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ctypes.Array</p>
 </dd>
 </dl>
 </dd></dl>

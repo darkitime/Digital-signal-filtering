@@ -7,7 +7,7 @@
 
 Графический интерфейс (GUI)
 ---------------------------
-.. automodule:: gui_advanced
+.. automodule:: gui_app
    :members:
    :undoc-members:
    :show-inheritance:
